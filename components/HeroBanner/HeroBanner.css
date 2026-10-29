@@ -1,0 +1,40 @@
+
+.hero-banner {
+  width: 100%;
+  overflow: hidden;
+  background: #fffdf9;
+}
+
+.hero-banner-link {
+  display: block;
+  width: 100%;
+  line-height: 0;
+  cursor: pointer;
+}
+
+.hero-banner-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+/* Subtle hover effect on desktop */
+@media (hover: hover) {
+  .hero-banner-link:hover .hero-banner-image {
+    transform: scale(1.01);
+  }
+}
+
+/* Accessibility */
+.hero-banner-link:focus-visible {
+  outline: 3px solid #087e99;
+  outline-offset: -3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-banner-image {
+    transition: none;
+  }
+}
