@@ -1,40 +1,648 @@
 
-.hero-banner {
+/* ==================================
+   SIMS HERO
+================================== */
+
+.sims-hero {
+  --ink: #102b46;
+  --deep-ink: #081827;
+  --teal: #087f8c;
+  --white: #ffffff;
+  --muted: #718096;
+
   width: 100%;
+  min-height: 690px;
+  padding: 0 6%;
   overflow: hidden;
-  background: #fffdf9;
+  position: relative;
+  background: #fff;
+  color: var(--ink);
 }
 
-.hero-banner-link {
+/* ==================================
+   NAVIGATION
+================================== */
+
+.sims-hero-nav {
+  max-width: 1350px;
+  height: 88px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #edf0f2;
+}
+
+.sims-brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.sims-brand-logo {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--ink);
+  border-radius: 50%;
+  font-family: Georgia, serif;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.sims-brand strong,
+.sims-brand small {
   display: block;
-  width: 100%;
-  line-height: 0;
+}
+
+.sims-brand strong {
+  font-size: 15px;
+  letter-spacing: .8px;
+}
+
+.sims-brand small {
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+}
+
+.sims-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.sims-nav-links a {
+  color: #475569;
+  font-size: 12px;
+  font-weight: 650;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.sims-nav-links a:hover {
+  color: var(--teal);
+}
+
+.sims-nav-year {
+  padding: 9px 15px;
+  border-radius: 5px;
+  background: var(--ink);
+  color: white;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* ==================================
+   MAIN LAYOUT
+================================== */
+
+.sims-hero-main {
+  max-width: 1350px;
+  min-height: 510px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 40px;
+  animation: simsSlideIn .7s ease both;
+}
+
+/* ==================================
+   LEFT CONTENT
+================================== */
+
+.sims-hero-copy {
+  position: relative;
+  z-index: 2;
+  padding: 45px 0;
+}
+
+.sims-hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--teal);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.eyebrow-line {
+  width: 28px;
+  height: 2px;
+  background: var(--teal);
+}
+
+.sims-hero-label {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 8px 13px;
+  background: #eaf3f3;
+  color: var(--teal);
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.5px;
+}
+
+.sims-hero-copy h1 {
+  max-width: 620px;
+  margin: 22px 0;
+  color: var(--deep-ink);
+  font-size: clamp(42px, 5.2vw, 70px);
+  line-height: 1.05;
+  font-weight: 900;
+  letter-spacing: -3px;
+}
+
+.sims-hero-copy h1 span {
+  display: block;
+  color: var(--teal);
+}
+
+.sims-hero-copy > p {
+  max-width: 440px;
+  margin: 0;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.9;
+}
+
+.sims-hero-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 23px;
+  margin-top: 32px;
+}
+
+.sims-hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  min-width: 185px;
+  padding: 15px 19px;
+  background: var(--ink);
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 750;
+  transition: background .25s ease, transform .25s ease;
+}
+
+.sims-hero-cta:hover {
+  background: var(--teal);
+  transform: translateY(-3px);
+}
+
+.sims-hero-cta span {
+  font-size: 18px;
+}
+
+.sims-hero-note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.note-check {
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #e3f4ee;
+  color: #16866d;
+  font-size: 11px;
+}
+
+.sims-hero-bottom-copy {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+  margin-top: 65px;
+  color: #94a3b8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+/* ==================================
+   RIGHT IMAGE AREA
+================================== */
+
+.sims-hero-art {
+  min-width: 0;
+  min-height: 470px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.art-background-shape {
+  position: absolute;
+  width: 85%;
+  height: 85%;
+  right: 0;
+  bottom: 0;
+  border-radius: 48% 48% 5px 5px;
+  background: #eaf0f1;
+  transform: rotate(-4deg);
+}
+
+.art-circle {
+  position: absolute;
+  border: 1px solid rgba(8, 127, 140, .2);
+  border-radius: 50%;
+}
+
+.art-circle-one {
+  width: 410px;
+  height: 410px;
+  animation: circleRotate 35s linear infinite;
+}
+
+.art-circle-two {
+  width: 340px;
+  height: 340px;
+  border-style: dashed;
+  animation: circleRotate 45s linear infinite reverse;
+}
+
+.hero-image-frame {
+  width: 88%;
+  height: 390px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border-radius: 5px;
+  animation: imageFloat 6s ease-in-out infinite;
+}
+
+.hero-main-image {
+  object-fit: contain;
+  object-position: center;
+  filter: drop-shadow(0 20px 25px rgba(8, 24, 39, .16));
+  transition: transform .7s ease;
+}
+
+.sims-hero-art:hover .hero-main-image {
+  transform: scale(1.04);
+}
+
+/* Image captions */
+
+.art-floating-label {
+  position: absolute;
+  z-index: 2;
+  top: 55px;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 17px;
+  background: white;
+  border: 1px solid #e8edef;
+  border-radius: 5px;
+  box-shadow: 0 12px 25px rgba(8, 24, 39, .08);
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  animation: floatingLabel 4s ease-in-out infinite;
+}
+
+.floating-label-icon {
+  color: var(--teal);
+  font-size: 18px;
+}
+
+.art-index {
+  position: absolute;
+  z-index: 2;
+  right: 15px;
+  bottom: 25px;
+  color: var(--ink);
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.art-index span {
+  color: #94a3b8;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ==================================
+   BOTTOM NAVIGATION
+================================== */
+
+.sims-hero-footer {
+  max-width: 1350px;
+  min-height: 75px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #edf0f2;
+}
+
+.hero-footer-caption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #64748b;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+}
+
+.footer-divider {
+  color: var(--teal);
+}
+
+.hero-slider-navigation {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.hero-nav-arrow,
+.hero-pause {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #e1e7eb;
+  border-radius: 50%;
+  background: white;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all .2s ease;
+}
+
+.hero-nav-arrow:hover,
+.hero-pause:hover {
+  background: var(--ink);
+  color: white;
+}
+
+.hero-pause {
+  font-size: 10px;
+}
+
+.hero-progress {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.hero-progress-item {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  padding: 5px 0;
+  border: 0;
+  background: transparent;
   cursor: pointer;
 }
 
-.hero-banner-image {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: contain;
-  transition: transform 0.3s ease;
+.hero-progress-item span {
+  color: #94a3b8;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1px;
 }
 
-/* Subtle hover effect on desktop */
-@media (hover: hover) {
-  .hero-banner-link:hover .hero-banner-image {
-    transform: scale(1.01);
+.hero-progress-item i {
+  display: block;
+  width: 65px;
+  height: 3px;
+  border-radius: 5px;
+  background: #dce3e8;
+  transition: background .3s ease;
+}
+
+.hero-progress-item.selected span {
+  color: var(--teal);
+}
+
+.hero-progress-item.selected i {
+  background: var(--teal);
+}
+
+/* ==================================
+   ANIMATIONS
+================================== */
+
+@keyframes simsSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes imageFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes floatingLabel {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes circleRotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ==================================
+   RESPONSIVE
+================================== */
+
+@media (max-width: 950px) {
+  .sims-hero {
+    padding: 0 5%;
+  }
+
+  .sims-hero-main {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .sims-hero-copy h1 {
+    font-size: 48px;
+  }
+
+  .sims-hero-art {
+    min-height: 400px;
+  }
+
+  .hero-image-frame {
+    height: 330px;
+  }
+
+  .art-circle-one {
+    width: 330px;
+    height: 330px;
+  }
+
+  .art-circle-two {
+    width: 280px;
+    height: 280px;
+  }
+
+  .sims-hero-bottom-copy {
+    gap: 12px;
+  }
+}
+
+@media (max-width: 700px) {
+  .sims-hero-nav {
+    height: 75px;
+  }
+
+  .sims-nav-links {
+    display: none;
+  }
+
+  .sims-hero-main {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding-top: 25px;
+  }
+
+  .sims-hero-copy {
+    padding: 25px 0 0;
+  }
+
+  .sims-hero-copy h1 {
+    max-width: 500px;
+    font-size: clamp(39px, 9vw, 54px);
+    letter-spacing: -2px;
+  }
+
+  .sims-hero-copy > p {
+    font-size: 14px;
+  }
+
+  .sims-hero-bottom-copy {
+    margin-top: 35px;
+  }
+
+  .sims-hero-art {
+    min-height: 350px;
+  }
+
+  .hero-image-frame {
+    width: 85%;
+    height: 300px;
+  }
+
+  .art-floating-label {
+    top: 15px;
+    right: 0;
+  }
+
+  .sims-hero-footer {
+    gap: 15px;
+    min-height: 75px;
+  }
+}
+
+@media (max-width: 430px) {
+  .sims-nav-year {
+    font-size: 8px;
+    padding: 8px 10px;
+  }
+
+  .sims-brand strong {
+    font-size: 12px;
+  }
+
+  .sims-brand small {
+    font-size: 8px;
+  }
+
+  .sims-hero-actions {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .sims-hero-art {
+    min-height: 310px;
+  }
+
+  .hero-image-frame {
+    height: 260px;
+  }
+
+  .art-circle-one {
+    width: 270px;
+    height: 270px;
+  }
+
+  .art-circle-two {
+    width: 220px;
+    height: 220px;
+  }
+
+  .hero-footer-caption {
+    font-size: 8px;
+    gap: 6px;
+  }
+
+  .hero-slider-navigation {
+    gap: 7px;
+  }
+
+  .hero-progress {
+    gap: 8px;
+  }
+
+  .hero-progress-item i {
+    width: 32px;
+  }
+
+  .hero-progress-item span {
+    font-size: 7px;
   }
 }
 
 /* Accessibility */
-.hero-banner-link:focus-visible {
-  outline: 3px solid #087e99;
-  outline-offset: -3px;
-}
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-banner-image {
-    transition: none;
+  .sims-hero *,
+  .sims-hero *::before,
+  .sims-hero *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

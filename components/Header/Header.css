@@ -5,9 +5,8 @@
   top: 0;
   z-index: 1000;
   width: 100%;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: blur(70px);
-  -webkit-backdrop-filter: blur(70px);
+  background-color: rgba(255, 255, 255, 0.613);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
   padding-left: 10px;
   padding-right: 10px;
@@ -59,7 +58,7 @@
   position: relative;
   color: #222;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   text-decoration: none;
   white-space: nowrap;

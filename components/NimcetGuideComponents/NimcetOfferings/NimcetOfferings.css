@@ -1,9 +1,10 @@
 
 .nimcet-offerings {
-  background: #f8f7f3;
-  color: #102b46;
+  background: #102b46;
+  color: #ffffff;
   padding: 90px 6%;
   overflow: hidden;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .offerings-container {
@@ -22,7 +23,7 @@
 .highlight-label,
 .tests-heading > span {
   display: inline-block;
-  color: #087f8c;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 2px;
@@ -34,16 +35,16 @@
   line-height: 1.15;
   font-weight: 850;
   letter-spacing: -1.8px;
-  color: #102b46;
+  color: #fff;
   margin: 0;
 }
 
 .offerings-heading h2 span {
-  color: #087f8c;
+  color: #fff;
 }
 
 .offerings-heading > p {
-  color: #64748b;
+  color: #fff;
   font-size: 16px;
   line-height: 1.8;
   margin-top: 16px;
@@ -60,7 +61,7 @@
   padding: 28px 34px;
   margin-bottom: 28px;
   border-radius: 18px;
-  background: linear-gradient(110deg, #102b46, #087f8c);
+  background: linear-gradient(110deg, #3283d4, #0d6ccb);
   color: white;
   position: relative;
   overflow: hidden;
@@ -80,12 +81,14 @@
 .offerings-highlight h3 {
   font-size: 29px;
   margin: 0 0 7px;
+  font-weight: 700;
 }
 
 .offerings-highlight p {
   margin: 0;
   color: rgba(255,255,255,.8);
   font-size: 14px;
+  font-weight: 600;
 }
 
 .highlight-label {
@@ -100,13 +103,13 @@
   padding: 14px 22px;
   border-radius: 13px;
   background: white;
-  color: #102b46;
+  color: #000;
   flex-shrink: 0;
   z-index: 1;
 }
 
 .demo-number {
-  color: #087f8c;
+  color: #000;
   font-size: 42px;
   font-weight: 900;
   line-height: 1;
@@ -124,7 +127,8 @@
 
 .demo-highlight div span {
   font-size: 13px;
-  color: #64748b;
+  color: #000;
+  font-weight: 600;
 }
 
 /* Offering cards */
@@ -201,7 +205,7 @@
 }
 
 .offering-content h3 {
-  color: #102b46;
+  color: #000;
   font-size: 16px;
   line-height: 1.4;
   margin: 0;
@@ -209,7 +213,7 @@
 }
 
 .offering-content p {
-  color: #718096;
+  color: #000;
   font-size: 13px;
   line-height: 1.5;
   margin: 5px 0 0;
@@ -219,7 +223,7 @@
   position: absolute;
   right: 17px;
   top: 15px;
-  color: #9ca3af;
+  color: #000;
   font-size: 16px;
   opacity: 0;
   transition: opacity .2s ease;
@@ -245,16 +249,17 @@
 
 .tests-heading > span {
   margin-bottom: 8px;
+  color: #000;
 }
 
 .tests-heading h3 {
-  color: #102b46;
+  color: #000;
   font-size: 25px;
   margin: 0;
 }
 
 .tests-heading p {
-  color: #718096;
+  color: #000;
   font-size: 14px;
   margin: 8px 0 0;
 }
@@ -281,7 +286,7 @@
 }
 
 .test-card h4 {
-  color: #102b46;
+  color: #000;
   font-size: 20px;
   margin: 0 0 4px;
   font-weight: 850;
@@ -305,7 +310,7 @@
 }
 
 .offerings-footer p {
-  color: #64748b;
+  color: #fff;
   font-size: 14px;
   font-weight: 600;
   margin: 0;
