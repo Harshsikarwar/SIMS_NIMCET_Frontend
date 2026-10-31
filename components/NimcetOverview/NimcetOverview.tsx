@@ -139,7 +139,7 @@ export default function NimcetOverview() {
                 THE EXAM
               </span>
 
-              <div className="nimcet-overview__monogram">N</div>
+              <div className="nimcet-overview__monogram"><img style={{borderRadius:"20px"}} src="images\nimcet.png"></img></div>
 
               <h3>NIMCET</h3>
               <p>NIT MCA Common Entrance Test</p>
@@ -154,11 +154,11 @@ export default function NimcetOverview() {
             </div>
 
             <span className="nimcet-overview__floating-mark nimcet-overview__floating-mark--top">
-              N
+              ✦
             </span>
 
             <span className="nimcet-overview__floating-mark nimcet-overview__floating-mark--bottom">
-              +
+              ✦
             </span>
           </div>
         </div>

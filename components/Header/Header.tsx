@@ -9,7 +9,7 @@ import "./Header.css";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "NIMCET Guide", href: "/nimcet-guide" },
+  { name: "NIMCET Guide", href: "/NimcetGuide" },
   { name: "Test Series", href: "/test-series" },
   { name: "About", href: "/about" },
 ];

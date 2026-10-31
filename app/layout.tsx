@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header/Header";
-import HeroBanner from "@/components/HeroBanner/HeroBanner";
-import HeroBannerVideo from "@/components/HeroBannerVideo/HeroBannerVideo";
-import NimcetOverview from "@/components/NimcetOverview/NimcetOverview";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,8 +26,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="min-h-full flex flex-col">
         <Header/>
-        <HeroBanner/>
-        <NimcetOverview/>
         {children}
       </body>
     </html>
