@@ -226,13 +226,6 @@ export default function NimcetOfferings() {
             ))}
           </div>
         </div>
-
-        <div className="offerings-footer">
-          <span className="footer-dot" />
-          <p>
-            Learn with confidence. Prepare with a plan. Aim for NIT.
-          </p>
-        </div>
       </div>
     </section>
   );

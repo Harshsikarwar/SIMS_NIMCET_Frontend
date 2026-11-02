@@ -1,7 +1,7 @@
 
 .nimcet-offerings {
-  background: #102b46;
-  color: #ffffff;
+  background: #f0e6de;
+  color: hsl(0, 0%, 100%);
   padding: 90px 6%;
   overflow: hidden;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,7 +23,7 @@
 .highlight-label,
 .tests-heading > span {
   display: inline-block;
-  color: #ffffff;
+  color: #1a1d24;
   font-size: 12px;
   font-weight: 800;
   letter-spacing: 2px;
@@ -35,16 +35,16 @@
   line-height: 1.15;
   font-weight: 850;
   letter-spacing: -1.8px;
-  color: #fff;
+  color: #1a1d24;
   margin: 0;
 }
 
 .offerings-heading h2 span {
-  color: #fff;
+  color: #1a1d24;
 }
 
 .offerings-heading > p {
-  color: #fff;
+  color: #1a1d24;
   font-size: 16px;
   line-height: 1.8;
   margin-top: 16px;
@@ -61,7 +61,7 @@
   padding: 28px 34px;
   margin-bottom: 28px;
   border-radius: 18px;
-  background: linear-gradient(110deg, #3283d4, #0d6ccb);
+  background: #1a1d24;
   color: white;
   position: relative;
   overflow: hidden;
@@ -146,6 +146,7 @@
   min-height: 112px;
   padding: 20px;
   background: #fff;
+  color: #1a1d24;
   border: 1px solid #e8e8e3;
   border-radius: 15px;
   position: relative;
@@ -175,28 +176,28 @@
 }
 
 .offering-icon.blue {
-  background: #e0f0ff;
-  color: #176caa;
+  background: #1a1d24;
+  color: #f0e6de;
 }
 
 .offering-icon.pink {
-  background: #ffe4ed;
-  color: #c34d79;
+  background: #1a1d24;
+  color: #f0e6de;
 }
 
 .offering-icon.green {
-  background: #dcf5ec;
-  color: #16866d;
+  background: #1a1d24;
+  color: #f0e6de;
 }
 
 .offering-icon.purple {
-  background: #eee4ff;
-  color: #8054b9;
+  background: #1a1d24;
+  color: #f0e6de;
 }
 
 .offering-icon.orange {
-  background: #ffead7;
-  color: #c77931;
+  background: #1a1d24;
+  color: #f0e6de;
 }
 
 .offering-content {
@@ -205,7 +206,7 @@
 }
 
 .offering-content h3 {
-  color: #000;
+  color: #1a1d24;
   font-size: 16px;
   line-height: 1.4;
   margin: 0;
@@ -213,7 +214,7 @@
 }
 
 .offering-content p {
-  color: #000;
+  color: #1a1d24;
   font-size: 13px;
   line-height: 1.5;
   margin: 5px 0 0;
@@ -223,7 +224,7 @@
   position: absolute;
   right: 17px;
   top: 15px;
-  color: #000;
+  color: #1a1d24;
   font-size: 16px;
   opacity: 0;
   transition: opacity .2s ease;
@@ -249,17 +250,17 @@
 
 .tests-heading > span {
   margin-bottom: 8px;
-  color: #000;
+  color: #1a1d24;
 }
 
 .tests-heading h3 {
-  color: #000;
+  color: #1a1d24;
   font-size: 25px;
   margin: 0;
 }
 
 .tests-heading p {
-  color: #000;
+  color: #1a1d24;
   font-size: 14px;
   margin: 8px 0 0;
 }
@@ -310,7 +311,7 @@
 }
 
 .offerings-footer p {
-  color: #fff;
+  color: #1a1d24;
   font-size: 14px;
   font-weight: 600;
   margin: 0;
@@ -319,7 +320,7 @@
 .footer-dot {
   width: 8px;
   height: 8px;
-  background: #087f8c;
+  background: #1a1d24;
   border-radius: 50%;
 }
 

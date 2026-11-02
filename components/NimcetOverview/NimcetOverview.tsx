@@ -1,234 +1,138 @@
 
+import Image from "next/image";
 import Link from "next/link";
 import "./NimcetOverview.css";
 
-const overviewCards = [
+const benefits = [
   {
     number: "01",
-    title: "Understand the Exam",
+    title: "NIT Admission",
     description:
-      "Explore the exam pattern, syllabus, eligibility criteria, and admission process using official information.",
-    icon: "book",
+      "Get an opportunity to pursue MCA at participating National Institutes of Technology.",
   },
   {
     number: "02",
-    title: "Explore MCA Opportunities",
+    title: "National Level Exam",
     description:
-      "Learn how NIMCET can provide a pathway to MCA programmes at participating NITs and IIITs.",
-    icon: "target",
+      "Compete with candidates from across India through a common entrance examination.",
   },
   {
     number: "03",
-    title: "Prepare with a Plan",
+    title: "Career Opportunities",
     description:
-      "Build your preparation around concept revision, question practice, mock tests, and performance analysis.",
-    icon: "chart",
+      "Build a strong foundation for advanced learning and future opportunities in technology.",
+  },
+  {
+    number: "04",
+    title: "Recognised Institutes",
+    description:
+      "Explore MCA education at reputed participating NIT institutions.",
   },
 ];
 
-function OverviewIcon({ type={} }) {
-  if (type === "book") {
-    return (
-      <svg
-        width="25"
-        height="25"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M12 7v14" />
-        <path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H12v18H5.5A2.5 2.5 0 0 0 3 23Z" />
-        <path d="M21 5.5A2.5 2.5 0 0 0 18.5 3H12v18h6.5a2.5 2.5 0 0 1 2.5 2Z" />
-      </svg>
-    );
-  }
-
-  if (type === "target") {
-    return (
-      <svg
-        width="25"
-        height="25"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.7"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <circle cx="12" cy="12" r="9" />
-        <circle cx="12" cy="12" r="5" />
-        <circle cx="12" cy="12" r="1.5" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg
-      width="25"
-      height="25"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M3 3v18h18" />
-      <path d="M7 15v3" />
-      <path d="M12 10v8" />
-      <path d="M17 6v12" />
-    </svg>
-  );
-}
-
 export default function NimcetOverview() {
+  // Change this path to use your own image.
+  const overviewImage = "/images/NIMCETStudyDeskSetup.png";
+
   return (
-    <section
-      className="nimcet-overview"
-      id="nimcet-overview"
-      aria-labelledby="nimcet-overview-title"
-    >
-      <div className="nimcet-overview__container">
-        {/* Introduction */}
-        <div className="nimcet-overview__intro">
-          <div className="nimcet-overview__content">
-            <span className="nimcet-overview__eyebrow">
-              <span className="nimcet-overview__eyebrow-line" />
+    <section className="nimcet-overview">
+      <div className="nimcet-overview-container">
+
+        {/* Upper section */}
+        <div className="nimcet-overview-main">
+
+          {/* Left content */}
+          <div className="nimcet-overview-content">
+            <span className="nimcet-overview-label">
               GET TO KNOW NIMCET
             </span>
 
-            <h2 id="nimcet-overview-title">
-              Your next chapter
-              <br />
-              starts with <span>the right direction.</span>
+            <h2>
+              What is <span>NIMCET?</span>
             </h2>
 
-            <p className="nimcet-overview__description">
-              NIMCET stands for NIT MCA Common Entrance Test.
-              It is a national-level entrance examination for
-              admission to MCA programmes at participating NITs
-              and IIITs. Understanding the exam is the first step
-              towards preparing with confidence.
+            <p>
+              NIMCET (NIT MCA Common Entrance Test) is a national-level
+              entrance examination for admission to the Master of
+              Computer Applications (MCA) programme offered by
+              participating National Institutes of Technology.
             </p>
+
+            <p>
+              It provides aspiring students with an opportunity to
+              pursue postgraduate education in computer applications
+              at participating NITs through a common admission process.
+            </p>
+
+            <div className="nimcet-overview-highlight">
+              <strong>Your pathway to MCA at NITs.</strong>
+              <span>Understand the exam and prepare with confidence.</span>
+            </div>
+          </div>
+
+          {/* Right image */}
+          <div className="nimcet-overview-image">
+            <Image
+              src={overviewImage}
+              alt="NIMCET examination and MCA preparation"
+              width={650}
+              height={480}
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="nimcet-overview-img"
+            />
+          </div>
+        </div>
+
+        {/* Lower section */}
+        <div className="nimcet-overview-benefits">
+          <div className="nimcet-benefits-heading">
+            <span>WHY NIMCET?</span>
+            <h3>What makes it worth preparing for?</h3>
+          </div>
+
+          <div className="nimcet-benefits-grid">
+            {benefits.map((benefit) => (
+              <article
+                className="nimcet-benefit-card"
+                key={benefit.number}
+              >
+                <span className="nimcet-benefit-number">
+                  {benefit.number}
+                </span>
+
+                <h4>{benefit.title}</h4>
+                <p>{benefit.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+
+        {/* Footer links */}
+        <footer className="nimcet-overview-footer">
+          <div>
+            <span>READY TO EXPLORE?</span>
+            <h3>Know more about NIMCET.</h3>
+          </div>
+
+          <div className="nimcet-overview-links">
+            <a
+              href="https://nimcet.admissions.nic.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="nimcet-official-link"
+            >
+              Official Website ↗
+            </a>
 
             <Link
               href="/nimcet-guide"
-              className="nimcet-overview__button"
+              className="nimcet-guide-link"
             >
-              Explore NIMCET Guide
-              <span aria-hidden="true">↗</span>
+              Explore NIMCET Guide →
             </Link>
           </div>
+        </footer>
 
-          {/* Decorative visual */}
-          <div
-            className="nimcet-overview__visual"
-            aria-hidden="true"
-          >
-            <div className="nimcet-overview__orbit nimcet-overview__orbit--one" />
-            <div className="nimcet-overview__orbit nimcet-overview__orbit--two" />
-
-            <div className="nimcet-overview__exam-card">
-              <span className="nimcet-overview__card-label">
-                THE EXAM
-              </span>
-
-              <div className="nimcet-overview__monogram"><img style={{borderRadius:"20px"}} src="images\nimcet.png"></img></div>
-
-              <h3>NIMCET</h3>
-              <p>NIT MCA Common Entrance Test</p>
-
-              <div className="nimcet-overview__card-footer">
-                <span>Learn</span>
-                <span className="nimcet-overview__card-dot" />
-                <span>Prepare</span>
-                <span className="nimcet-overview__card-dot" />
-                <span>Progress</span>
-              </div>
-            </div>
-
-            <span className="nimcet-overview__floating-mark nimcet-overview__floating-mark--top">
-              ✦
-            </span>
-
-            <span className="nimcet-overview__floating-mark nimcet-overview__floating-mark--bottom">
-              ✦
-            </span>
-          </div>
-        </div>
-
-        {/* Overview cards heading */}
-        <div className="nimcet-overview__section-heading">
-          <div>
-            <span className="nimcet-overview__mini-label">
-              START WITH THE BASICS
-            </span>
-            <h3>What you should know</h3>
-          </div>
-
-          <p>
-            Understand the examination, explore the opportunities,
-            and develop a structured preparation strategy.
-          </p>
-        </div>
-
-        {/* Overview cards */}
-        <div className="nimcet-overview__grid">
-          {overviewCards.map((card, index) => (
-            <article
-              className="nimcet-overview__info-card"
-              key={card.number}
-              style={{
-                animationDelay: `${180 + index * 120}ms`,
-              }}
-            >
-              <div className="nimcet-overview__card-top">
-                <div className="nimcet-overview__icon">
-                  <OverviewIcon type={card.icon} />
-                </div>
-
-                <span className="nimcet-overview__number">
-                  {card.number}
-                </span>
-              </div>
-
-              <h4>{card.title}</h4>
-              <p>{card.description}</p>
-
-              <span className="nimcet-overview__card-line" />
-            </article>
-          ))}
-        </div>
-
-        {/* Official information */}
-        <div className="nimcet-overview__note">
-          <span
-            className="nimcet-overview__note-symbol"
-            aria-hidden="true"
-          >
-            i
-          </span>
-
-          <p>
-            Always verify the latest eligibility, syllabus, dates,
-            and admission rules through the official notification.
-          </p>
-
-          <a
-            href="https://nimcet.admissions.nic.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Official website
-            <span aria-hidden="true">↗</span>
-          </a>
-        </div>
       </div>
     </section>
   );
