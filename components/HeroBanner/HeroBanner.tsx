@@ -8,12 +8,12 @@ import "./HeroBanner.css";
 const banners = [
   {
     id: 1,
-    src: "/images/TestseriesBanner.png",
+    src: "/images/TestSeriesBanner.png",
     alt: "NIMCET 2027 special discount offer",
   },
   {
     id: 2,
-    src: "/images/NewBatchBanner.png",
+    src: "/images/NewAdmissionBanner.png",
     alt: "NIMCET 2027 new batch announcement",
   },
 ];

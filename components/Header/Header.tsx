@@ -68,7 +68,7 @@ export default function Header() {
           ))}
 
           <Link
-            href="/login"
+            href="/auth/login"
             className="login-button"
             onClick={closeMenu}
           >

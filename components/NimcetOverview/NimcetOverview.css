@@ -30,7 +30,7 @@
 .nimcet-overview-footer span {
   display: inline-block;
   color: #f0e6de;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
   margin-bottom: 18px;
@@ -50,7 +50,8 @@
 
 .nimcet-overview-content > p {
   color: rgba(255, 255, 255, 0.75);
-  font-size: 15px;
+  font-size: 16px;
+  font-weight: 600;
   line-height: 1.9;
   margin-bottom: 16px;
 }
@@ -67,12 +68,14 @@
 
 .nimcet-overview-highlight strong {
   color: #f0e6de;
-  font-size: 15px;
+  font-size: 18px;
+  font-weight: 700;
 }
 
 .nimcet-overview-highlight span {
   color: rgba(255, 255, 255, 0.7);
-  font-size: 13px;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 /* Image */
@@ -107,6 +110,7 @@
   color: #ffffff;
   font-size: clamp(23px, 3vw, 32px);
   margin: 0;
+  font-weight: 700;
 }
 
 .nimcet-benefits-grid {
@@ -121,6 +125,13 @@
   background: #ffffff;
   color: #1a1d24;
   border-radius: 10px;
+  transition: all 0.3s ease-in-out;
+}
+
+.nimcet-benefit-card:hover{
+  transform: translateY(-5px);
+  border-color: #ffffff;
+  box-shadow: 0 12px 30px ffffff;
 }
 
 .nimcet-benefit-number {
@@ -140,6 +151,7 @@
 .nimcet-benefit-card p {
   color: #55565b;
   font-size: 13px;
+  font-weight: 600;
   line-height: 1.7;
   margin: 0;
 }
@@ -186,11 +198,24 @@
 .nimcet-official-link {
   color: #1a1d24;
   background: #f0e6de;
+  transition: all 0.3s ease-in-out;
+}
+
+.nimcet-official-link:hover{
+  background-color: #1a1d24;
+  color: #f0e6de;
+  border: 1px solid rgba(240, 230, 222, 0.6);
 }
 
 .nimcet-guide-link {
   color: #ffffff;
   border: 1px solid rgba(240, 230, 222, 0.6);
+  transition: all 0.3s ease-in-out;
+}
+
+.nimcet-guide-link:hover {
+  color: #1a1d24;
+  background: #f0e6de;
 }
 
 .nimcet-official-link:focus-visible,
@@ -273,5 +298,6 @@
     width: 100%;
   }
 }
+
 
 /* Reduced motion preference is respected; no animations are used. */
