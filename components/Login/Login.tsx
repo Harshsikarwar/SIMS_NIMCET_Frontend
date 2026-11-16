@@ -2,22 +2,67 @@
 "use client";
 
 import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
+
 import "./Login.css";
 
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:8000";
+
+interface ApiResponse {
+  message?: string;
+  detail?: string;
+  redirectUrl?: string;
+  redirect_url?: string;
+}
+
+function getCsrfToken(): string {
+  if (typeof document === "undefined") return "";
+
+  const csrfCookie = document.cookie
+    .split("; ")
+    .find((cookie) => cookie.startsWith("csrftoken="));
+
+  return csrfCookie
+    ? decodeURIComponent(csrfCookie.split("=").slice(1).join("="))
+    : "";
+}
+
+function getSafeRedirectUrl(value?: string): string {
+  if (!value || typeof window === "undefined") return "/";
+
+  try {
+    const url = new URL(value, window.location.origin);
+
+    if (
+      url.origin !== window.location.origin ||
+      value.startsWith("//") ||
+      value.includes("\\")
+    ) {
+      return "/";
+    }
+
+    return `${url.pathname}${url.search}${url.hash}`;
+  } catch {
+    return "/";
+  }
+}
+
 export default function Login() {
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // Add your logo path here.
-  const logoSrc = "";
-
   const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (loading) return;
+
     setError("");
 
     const normalizedEmail = email.trim().toLowerCase();
@@ -27,25 +72,30 @@ export default function Login() {
       return;
     }
 
-    if (normalizedEmail.length > 254 || password.length > 128) {
-      setError("Invalid email or password.");
-      return;
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
-      setError("Please enter a valid email address.");
+    if (
+      normalizedEmail.length > 254 ||
+      password.length > 128 ||
+      !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)
+    ) {
+      setError("Please enter valid login credentials.");
       return;
     }
 
     try {
       setLoading(true);
 
-      const response = await fetch("/api/auth/login", {
+      const csrfToken = getCsrfToken();
+
+      const response = await fetch(`${API_URL}/api/auth/login/`, {
         method: "POST",
-        credentials: "same-origin",
+        credentials: "include",
+        cache: "no-store",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          ...(csrfToken && {
+            "X-CSRFToken": csrfToken,
+          }),
         },
         body: JSON.stringify({
           email: normalizedEmail,
@@ -53,24 +103,41 @@ export default function Login() {
         }),
       });
 
-      const data: { message?: string; redirectUrl?: string } =
-        await response.json().catch(() => ({}));
+      const contentType = response.headers.get("content-type") || "";
+
+      let data: ApiResponse = {};
+
+      if (contentType.includes("application/json")) {
+        try {
+          data = await response.json();
+        } catch {
+          throw new Error("Invalid response received from the server.");
+        }
+      }
 
       if (!response.ok) {
         throw new Error(
-          data.message || "Login failed. Please check your credentials."
+          data.detail ||
+            data.message ||
+            (response.status === 401
+              ? "Incorrect email or password."
+              : "Login failed. Please try again.")
         );
       }
 
-      // Only allow safe local redirect paths.
-      const redirectUrl =
-        data.redirectUrl &&
-        data.redirectUrl.startsWith("/") &&
-        !data.redirectUrl.startsWith("//")
-          ? data.redirectUrl
-          : "/";
+      // Django must set the HttpOnly access and refresh cookies.
+      // Never store JWT tokens in localStorage or sessionStorage.
 
-      window.location.assign(redirectUrl);
+      const redirectUrl = getSafeRedirectUrl(
+        data.redirectUrl || data.redirect_url
+      );
+
+      // Notify other components that login was successful.
+      window.dispatchEvent(new Event("auth-changed"));
+
+      router.replace(redirectUrl);
+      router.refresh();
+
     } catch (err: unknown) {
       setError(
         err instanceof Error
@@ -82,11 +149,6 @@ export default function Login() {
     }
   };
 
-  const handleGoogleLogin = () => {
-    // Replace with your backend's Google OAuth start URL.
-    window.location.assign("/api/auth/google");
-  };
-
   return (
     <main className="login-page">
       <section className="login-book">
@@ -96,6 +158,7 @@ export default function Login() {
 
             <form onSubmit={handleLogin} className="login-form">
               <label htmlFor="login-email">Email</label>
+
               <input
                 id="login-email"
                 type="email"
@@ -110,6 +173,7 @@ export default function Login() {
               />
 
               <label htmlFor="login-password">Password</label>
+
               <div className="login-password-field">
                 <input
                   id="login-password"
@@ -127,8 +191,12 @@ export default function Login() {
                 <button
                   type="button"
                   className="login-show-password"
-                  onClick={() => setShowPassword((value) => !value)}
-                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() =>
+                    setShowPassword((value) => !value)
+                  }
+                  aria-label={
+                    showPassword ? "Hide password" : "Show password"
+                  }
                   disabled={loading}
                 >
                   {showPassword ? "Hide" : "Show"}
@@ -136,7 +204,9 @@ export default function Login() {
               </div>
 
               <div className="login-forgot">
-                <Link href="/forgot-password">Forgot password?</Link>
+                <Link href="/auth/forgot-password">
+                  Forgot password?
+                </Link>
               </div>
 
               {error && (
@@ -154,23 +224,9 @@ export default function Login() {
               </button>
             </form>
 
-            <div className="login-divider">
-              <span>OR</span>
-            </div>
-
-            <button
-              type="button"
-              className="login-google"
-              onClick={handleGoogleLogin}
-              disabled={loading}
-            >
-              <span className="google-symbol">G</span>
-              Continue with Google
-            </button>
-
             <p className="login-signup">
-              Don&apos;t have an account?{" "}
-              <Link href="/signup">Signup</Link>
+              Don't have an account?{" "}
+              <Link href="/auth/signup">Signup</Link>
             </p>
           </div>
         </div>
