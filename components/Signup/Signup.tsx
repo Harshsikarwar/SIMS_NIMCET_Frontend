@@ -5,7 +5,8 @@ import { FormEvent, useState } from "react";
 import "./Signup.css";
 import { useRouter } from "next/navigation";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
 
 type ApiResponse = {
   detail?: string;
@@ -13,7 +14,8 @@ type ApiResponse = {
 };
 
 export default function Signup() {
-    const router = useRouter();
+  const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [password, setPassword] = useState("");
@@ -27,11 +29,18 @@ export default function Signup() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
 
-  const request = async (endpoint: string, payload: object) => {
+  // Common API request function
+  const request = async (
+    endpoint: string,
+    payload: object
+  ): Promise<ApiResponse> => {
     const response = await fetch(`${API_URL}${endpoint}`, {
       method: "POST",
+      credentials: "include",
+      cache: "no-store",
       headers: {
         "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: JSON.stringify(payload),
     });
@@ -47,16 +56,19 @@ export default function Signup() {
     return data;
   };
 
+  // Send OTP
   const handleSendOTP = async () => {
     setError("");
     setMessage("");
 
-    if (!email.trim()) {
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedEmail) {
       setError("Please enter your email address.");
       return;
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(normalizedEmail)) {
       setError("Please enter a valid email address.");
       return;
     }
@@ -65,18 +77,24 @@ export default function Signup() {
 
     try {
       const data = await request("/api/auth/resend-otp/", {
-        email: email.trim().toLowerCase(),
+        email: normalizedEmail,
       });
 
       setOtpSent(true);
-      setMessage(data.detail || data.message || "OTP sent successfully.");
+
+      setMessage(
+        data.detail || data.message || "OTP sent successfully."
+      );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unable to send OTP.");
+      setError(
+        err instanceof Error ? err.message : "Unable to send OTP."
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  // Verify OTP
   const handleVerifyOTP = async () => {
     setError("");
     setMessage("");
@@ -97,16 +115,23 @@ export default function Signup() {
       setEmailVerified(true);
       setOtpSent(false);
       setOtp("");
-      setMessage(data.detail || data.message || "Email verified successfully.");
+
+      setMessage(
+        data.detail || data.message || "Email verified successfully."
+      );
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Invalid OTP.");
+      setError(
+        err instanceof Error ? err.message : "Invalid OTP."
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  // Create account and automatically log in
   const handleSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     setError("");
     setMessage("");
 
@@ -130,21 +155,34 @@ export default function Signup() {
     try {
       const data = await request("/api/auth/register/", {
         email: email.trim().toLowerCase(),
-        password:password,
-        confirm_password:password,
+        password: password,
+        confirm_password: confirmPassword,
       });
 
-      setMessage(data.detail || data.message || "Account created successfully.");
-      router.push("/");
-      // Redirect after successful registration if required.
-      // window.location.href = "/auth/login";
+      // Django must set access_token and refresh_token cookies
+      // before this registration request returns successfully.
+
+      setMessage(
+        data.detail || data.message || "Account created successfully."
+      );
+
+      // Notify the Header that registration/login has succeeded.
+      window.dispatchEvent(new Event("auth-changed"));
+
+      // Redirect to home page.
+      router.replace("/");
+      router.refresh();
+
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Signup failed.");
+      setError(
+        err instanceof Error ? err.message : "Signup failed."
+      );
     } finally {
       setLoading(false);
     }
   };
 
+  // Reset email verification if email changes
   const handleEmailChange = (value: string) => {
     setEmail(value);
     setOtpSent(false);
@@ -184,7 +222,13 @@ export default function Signup() {
               className={`signup-verify-btn ${
                 emailVerified ? "verified" : ""
               }`}
-              onClick={emailVerified ? undefined : otpSent ? handleVerifyOTP : handleSendOTP}
+              onClick={
+                emailVerified
+                  ? undefined
+                  : otpSent
+                    ? handleVerifyOTP
+                    : handleSendOTP
+              }
               disabled={loading || emailVerified}
             >
               {loading
@@ -198,9 +242,11 @@ export default function Signup() {
           </div>
         </div>
 
+        {/* OTP input */}
         {otpSent && (
           <div className="signup-field">
             <label htmlFor="signup-otp">Enter OTP</label>
+
             <input
               id="signup-otp"
               type="text"
@@ -236,6 +282,7 @@ export default function Signup() {
         {/* Password */}
         <div className="signup-field">
           <label htmlFor="signup-password">Password</label>
+
           <div className="signup-password-wrapper">
             <input
               id="signup-password"
@@ -247,6 +294,7 @@ export default function Signup() {
               disabled={loading}
               required
             />
+
             <button
               type="button"
               className="signup-show-password"
@@ -255,11 +303,18 @@ export default function Signup() {
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
-          <span className="signup-hint">Use at least 8 characters.</span>
+
+          <span className="signup-hint">
+            Use at least 8 characters.
+          </span>
         </div>
 
+        {/* Confirm password */}
         <div className="signup-field">
-          <label htmlFor="signup-confirm-password">Confirm password</label>
+          <label htmlFor="signup-confirm-password">
+            Confirm password
+          </label>
+
           <input
             id="signup-confirm-password"
             type={showPassword ? "text" : "password"}
@@ -272,9 +327,16 @@ export default function Signup() {
           />
         </div>
 
-        {error && <div className="signup-alert error">{error}</div>}
-        {message && <div className="signup-alert success">{message}</div>}
+        {/* Messages */}
+        {error && (
+          <div className="signup-alert error">{error}</div>
+        )}
 
+        {message && (
+          <div className="signup-alert success">{message}</div>
+        )}
+
+        {/* Submit */}
         <button
           type="submit"
           className="signup-submit"
@@ -284,7 +346,8 @@ export default function Signup() {
         </button>
 
         <p className="signup-login-link">
-          Already have an account? <a href="/auth/login">Log in</a>
+          Already have an account?{" "}
+          <a href="/auth/login">Log in</a>
         </p>
       </form>
     </div>

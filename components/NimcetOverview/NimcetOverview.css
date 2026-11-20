@@ -1,7 +1,7 @@
 
 .nimcet-overview {
   width: 100%;
-  padding: 85px 6%;
+  padding: 50px 2%;
   background: #1a1d24;
   color: #ffffff;
 }
@@ -84,7 +84,7 @@
   width: 100%;
   overflow: hidden;
   border-radius: 14px;
-  background: #f0e6de;
+  background:#f0e6de;
 }
 
 .nimcet-overview-img {
@@ -242,7 +242,7 @@
 
 /* Mobile */
 
-@media (max-width: 650px) {
+@media (max-width: 720px) {
   .nimcet-overview {
     padding: 50px 20px;
   }

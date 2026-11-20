@@ -13,7 +13,7 @@ import "./Header.css";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "NIMCET Guide", href: "/NimcetGuide" },
+  { name: "NIMCET Guide", href: "/nimcet_guide" },
   { name: "Test Series", href: "/test-series" },
   { name: "About", href: "/about" },
 ];
@@ -131,6 +131,34 @@ export default function Header() {
       setLogoutLoading(false);
     }
   };
+
+  useEffect(() => {
+    const handleAuthChanged = () => {
+      setIsAuthenticated(true);
+      setAuthLoading(false);
+    };
+
+    const handleLogoutSuccess = () => {
+      setIsAuthenticated(false);
+      setAuthLoading(false);
+    };
+
+    window.addEventListener("auth-changed", handleAuthChanged);
+    window.addEventListener("logout-success", handleLogoutSuccess);
+
+    checkAuth().then((result) => {
+      if (result.authenticated !== null) {
+        setIsAuthenticated(result.authenticated);
+      }
+
+      setAuthLoading(false);
+    });
+
+  return () => {
+    window.removeEventListener("auth-changed", handleAuthChanged);
+    window.removeEventListener("logout-success", handleLogoutSuccess);
+  };
+}, []);
 
   return (
     <header className="sims-header">
