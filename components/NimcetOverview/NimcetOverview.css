@@ -1,303 +1,467 @@
-
+/* Main Section */
 .nimcet-overview {
   width: 100%;
-  padding: 50px 2%;
-  background: #1a1d24;
-  color: #ffffff;
+  padding: 42px 6% 28px;
+  background: #ffe3c3;
+  color: #080808;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.nimcet-overview,
+.nimcet-overview * {
+  box-sizing: border-box;
 }
 
 .nimcet-overview-container {
-  max-width: 1250px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Upper section */
 
+/* Upper Section */
 .nimcet-overview-main {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 0.9fr);
   align-items: center;
-  gap: 55px;
-  padding-bottom: 75px;
+  gap: 30px;
+  padding-bottom: 24px;
 }
 
+
+/* Left Content */
 .nimcet-overview-content {
-  max-width: 570px;
+  width: 100%;
+  max-width: 820px;
 }
 
-.nimcet-overview-label,
-.nimcet-benefits-heading span,
-.nimcet-overview-footer span {
-  display: inline-block;
-  color: #f0e6de;
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  margin-bottom: 18px;
-}
-
-.nimcet-overview-content h2 {
-  color: #ffffff;
-  font-size: clamp(32px, 4vw, 48px);
-  line-height: 1.15;
-  margin: 0 0 24px;
+.nimcet-overview-content h1 {
+  color: #a64000;
+  font-size: clamp(40px, 5vw, 66px);
+  line-height: 1.1;
   font-weight: 800;
+  margin: 0 0 18px;
+  letter-spacing: -1.5px;
 }
 
-.nimcet-overview-content h2 span {
-  color: #f0e6de;
+.nimcet-overview-content p {
+  color: #080808;
+  font-size: clamp(16px, 1.65vw, 22px);
+  font-weight: 400;
+  line-height: 1.36;
+  margin: 0;
 }
 
-.nimcet-overview-content > p {
-  color: rgba(255, 255, 255, 0.75);
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.9;
-  margin-bottom: 16px;
-}
 
-.nimcet-overview-highlight {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  margin-top: 28px;
-  padding: 17px 20px;
-  border-left: 3px solid #f0e6de;
-  background: rgba(240, 230, 222, 0.08);
-}
-
-.nimcet-overview-highlight strong {
-  color: #f0e6de;
-  font-size: 18px;
-  font-weight: 700;
-}
-
-.nimcet-overview-highlight span {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 16px;
-  font-weight: 500;
-}
-
-/* Image */
-
+/* Right Image */
 .nimcet-overview-image {
   width: 100%;
-  overflow: hidden;
-  border-radius: 14px;
-  background:#f0e6de;
+  max-width: 400px;
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .nimcet-overview-img {
   display: block;
   width: 100%;
   height: auto;
-  object-fit: cover;
+  object-fit: contain;
 }
 
-/* Benefits */
 
+/* Benefits Section */
 .nimcet-overview-benefits {
-  padding: 55px 0;
-  border-top: 1px solid rgba(240, 230, 222, 0.2);
-  border-bottom: 1px solid rgba(240, 230, 222, 0.2);
+  width: 100%;
+  margin-top: 0;
 }
 
 .nimcet-benefits-heading {
-  margin-bottom: 30px;
+  color: #000000;
+  font-size: clamp(32px, 3.5vw, 46px);
+  font-weight: 800;
+  line-height: 1.1;
+  margin: 0 0 24px;
 }
 
-.nimcet-benefits-heading h3 {
-  color: #ffffff;
-  font-size: clamp(23px, 3vw, 32px);
-  margin: 0;
-  font-weight: 700;
-}
 
+/* Benefits Grid */
 .nimcet-benefits-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 18px;
+  gap: 20px;
 }
 
-.nimcet-benefit-card {
-  padding: 25px 21px;
+
+/* ===== Scroll Reveal Animation ===== */
+
+/*
+  The outer element (.nimcet-benefits-heading-wrap / .nimcet-benefit-cell)
+  is what the IntersectionObserver watches. It never moves, so it can't
+  flicker. The inner element is what actually animates. JS adds/removes
+  "is-visible" on the outer element as it enters/leaves the screen, so the
+  animation replays every time you scroll away and back.
+*/
+
+/* Heading */
+.nimcet-benefits-heading {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nimcet-benefits-heading-wrap.is-visible .nimcet-benefits-heading {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Card cell (observed, static) */
+.nimcet-benefit-cell {
+  display: flex;
   min-width: 0;
-  background: #ffffff;
-  color: #1a1d24;
-  border-radius: 10px;
-  transition: all 0.3s ease-in-out;
 }
 
-.nimcet-benefit-card:hover{
-  transform: translateY(-5px);
-  border-color: #ffffff;
-  box-shadow: 0 12px 30px ffffff;
+/* Reveal layer (animated) – separate from the card so hover still works */
+.nimcet-benefit-reveal {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  opacity: 0;
+  transform: translateY(50px) scale(0.96);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  will-change: opacity, transform;
+}
+
+.nimcet-benefit-cell.is-visible .nimcet-benefit-reveal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms); /* delay only when revealing */
+}
+
+
+/* Individual Cards */
+.nimcet-benefit-card {
+  flex: 1;
+  min-width: 0;
+  min-height: 233px;
+  padding: 10px 13px 16px;
+  border: 3px solid #000000;
+  border-radius: 18px;
+  background: transparent;
+  color: #000000;
+
+  display: flex;
+  flex-direction: column;
+
+  transition:
+    background-color 0.25s ease,
+    transform 0.25s ease;
+}
+
+.nimcet-benefit-card:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+}
+
+
+/* Card Number and Horizontal Line */
+.nimcet-benefit-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+/* Line draws from left to right on reveal */
+.nimcet-benefit-meta::after {
+  content: "";
+  display: block;
+  flex: 1;
+  height: 2px;
+  background: #000000;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.3s ease;
+}
+
+.nimcet-benefit-cell.is-visible .nimcet-benefit-meta::after {
+  transform: scaleX(1);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--reveal-delay, 0ms) + 300ms);
 }
 
 .nimcet-benefit-number {
   display: inline-block;
-  margin-bottom: 25px;
-  color: #62636a;
-  font-size: 13px;
+  color: #000000;
+  font-size: 23px;
+  font-weight: 400;
+  line-height: 1;
+}
+
+
+/* Card Heading */
+.nimcet-benefit-card h3 {
+  color: #000000;
+  font-size: clamp(22px, 2.1vw, 32px);
   font-weight: 700;
+  line-height: 0.98;
+  margin: 0 0 10px;
+  min-height: 2em;
 }
 
-.nimcet-benefit-card h4 {
-  font-size: 18px;
-  margin: 0 0 12px;
-  font-weight: 800;
-}
 
+/* Card Description */
 .nimcet-benefit-card p {
-  color: #55565b;
-  font-size: 13px;
-  font-weight: 600;
-  line-height: 1.7;
-  margin: 0;
+  color: #111111;
+  font-size: clamp(14px, 1.3vw, 18px);
+  font-weight: 400;
+  line-height: 1.3;
+  margin: auto 0 0;
 }
+
 
 /* Footer */
-
 .nimcet-overview-footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 25px;
-  padding-top: 40px;
+  gap: 18px;
+  padding: 17px 8px 0;
 }
 
-.nimcet-overview-footer span {
-  margin-bottom: 10px;
-}
-
-.nimcet-overview-footer h3 {
-  color: #ffffff;
-  font-size: 23px;
+.nimcet-footer-intro {
+  color: #000000;
+  font-size: 22px;
+  font-weight: 400;
   margin: 0;
 }
 
+
+/* Footer Links */
 .nimcet-overview-links {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 30px;
 }
 
-.nimcet-official-link,
-.nimcet-guide-link {
-  display: inline-block;
-  padding: 13px 19px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 700;
+.nimcet-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  color: #000000;
+  font-size: 22px;
+  font-weight: 400;
   text-decoration: none;
-  text-align: center;
+
+  transition: color 0.2s ease;
 }
 
-.nimcet-official-link {
-  color: #1a1d24;
-  background: #f0e6de;
-  transition: all 0.3s ease-in-out;
+.nimcet-footer-link svg {
+  width: 25px;
+  height: 25px;
+  flex-shrink: 0;
+  color: #b64c0a;
 }
 
-.nimcet-official-link:hover{
-  background-color: #1a1d24;
-  color: #f0e6de;
-  border: 1px solid rgba(240, 230, 222, 0.6);
+.nimcet-footer-link:hover {
+  color: #a64000;
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
 
-.nimcet-guide-link {
-  color: #ffffff;
-  border: 1px solid rgba(240, 230, 222, 0.6);
-  transition: all 0.3s ease-in-out;
+.nimcet-footer-link:focus-visible {
+  outline: 2px solid #a64000;
+  outline-offset: 5px;
+  border-radius: 3px;
 }
 
-.nimcet-guide-link:hover {
-  color: #1a1d24;
-  background: #f0e6de;
-}
 
-.nimcet-official-link:focus-visible,
-.nimcet-guide-link:focus-visible {
-  outline: 3px solid #ffffff;
-  outline-offset: 4px;
-}
-
-/* Tablet */
-
-@media (max-width: 900px) {
+/* Tablet Layout */
+@media (max-width: 1000px) {
   .nimcet-overview {
-    padding: 65px 5%;
+    padding: 40px 5% 25px;
   }
 
   .nimcet-overview-main {
-    gap: 30px;
+    grid-template-columns: minmax(0, 1.5fr) minmax(250px, 0.8fr);
+    gap: 25px;
+  }
+
+  .nimcet-overview-image {
+    max-width: 340px;
   }
 
   .nimcet-benefits-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+
+  .nimcet-benefit-card {
+    min-height: 210px;
+  }
+
+  .nimcet-benefit-card h3 {
+    font-size: 28px;
+  }
+
+  .nimcet-benefit-card p {
+    font-size: 16px;
   }
 }
 
-/* Mobile */
 
-@media (max-width: 720px) {
+/* Mobile Layout */
+@media (max-width: 640px) {
   .nimcet-overview {
-    padding: 50px 20px;
+    padding: 34px 20px 25px;
   }
 
   .nimcet-overview-main {
     grid-template-columns: 1fr;
-    gap: 30px;
-    padding-bottom: 45px;
-  }
-
-  .nimcet-overview-image {
-    grid-row: 1;
+    gap: 20px;
+    padding-bottom: 32px;
   }
 
   .nimcet-overview-content {
+    grid-row: 1;
+  }
+
+  .nimcet-overview-content h1 {
+    font-size: clamp(36px, 9vw, 48px);
+    letter-spacing: -1px;
+    margin-bottom: 15px;
+  }
+
+  .nimcet-overview-content p {
+    font-size: 16px;
+    line-height: 1.55;
+  }
+
+  .nimcet-overview-image {
     grid-row: 2;
+    width: 100%;
+    max-width: 330px;
+    justify-self: center;
   }
 
-  .nimcet-overview-content > p {
-    font-size: 14px;
-  }
-
-  .nimcet-overview-benefits {
-    padding: 40px 0;
+  .nimcet-benefits-heading {
+    font-size: 32px;
+    margin-bottom: 20px;
   }
 
   .nimcet-benefits-grid {
     grid-template-columns: 1fr;
-    gap: 13px;
+    gap: 14px;
   }
 
   .nimcet-benefit-card {
-    padding: 21px;
+    min-height: 190px;
+    padding: 13px 16px 17px;
+    border-radius: 15px;
   }
 
   .nimcet-benefit-number {
-    margin-bottom: 14px;
+    font-size: 21px;
+  }
+
+  .nimcet-benefit-card h3 {
+    font-size: 27px;
+    min-height: auto;
+    margin-bottom: 12px;
+  }
+
+  .nimcet-benefit-card p {
+    font-size: 16px;
+    line-height: 1.45;
   }
 
   .nimcet-overview-footer {
-    align-items: flex-start;
     flex-direction: column;
+    align-items: flex-start;
+    padding: 25px 0 0;
+    gap: 16px;
+  }
+
+  .nimcet-footer-intro {
+    font-size: 18px;
   }
 
   .nimcet-overview-links {
-    width: 100%;
-    flex-direction: column;
-    align-items: stretch;
+    justify-content: flex-start;
+    gap: 20px;
   }
 
-  .nimcet-official-link,
-  .nimcet-guide-link {
-    width: 100%;
+  .nimcet-footer-link {
+    font-size: 17px;
+  }
+
+  .nimcet-footer-link svg {
+    width: 21px;
+    height: 21px;
   }
 }
 
 
-/* Reduced motion preference is respected; no animations are used. */
+/* Small Mobile Screens */
+@media (max-width: 380px) {
+  .nimcet-overview {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .nimcet-overview-content h1 {
+    font-size: 34px;
+  }
+
+  .nimcet-benefit-card h3 {
+    font-size: 24px;
+  }
+
+  .nimcet-overview-links {
+    gap: 14px;
+  }
+
+  .nimcet-footer-link {
+    font-size: 15px;
+  }
+}
+
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .nimcet-benefit-card,
+  .nimcet-footer-link {
+    transition: none;
+  }
+
+  .nimcet-benefit-card:hover {
+    transform: none;
+  }
+
+  /* Show everything immediately, no motion */
+  .nimcet-benefits-heading,
+  .nimcet-benefit-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .nimcet-benefit-meta::after {
+    transform: scaleX(1);
+    transition: none;
+  }
+}

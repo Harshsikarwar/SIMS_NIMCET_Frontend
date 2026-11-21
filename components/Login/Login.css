@@ -1,6 +1,5 @@
 
 .login-page {
-  min-height: 100svh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -168,6 +167,7 @@
   font-size: 18px;
   font-weight: 700;
   cursor: pointer;
+  margin-top: 20px;
 }
 
 .login-submit:disabled,
@@ -253,6 +253,10 @@
     padding: 35px 25px;
   }
 
+  .login-form-wrapper{
+    margin-left: 30px;
+  }
+
   .login-brand {
     margin-bottom: 40px;
   }
@@ -271,8 +275,12 @@
 }
 
 @media (max-width: 360px) {
+  .login-page{
+    padding: 4px;
+    padding-top: 30px;
+  }
   .login-book {
-    padding: 28px 18px;
+    padding: 12px 18px;
   }
 
   .login-brand h1 {

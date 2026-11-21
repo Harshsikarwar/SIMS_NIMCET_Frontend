@@ -1,137 +1,187 @@
+/* =========================================
+   MAIN SECTION
+========================================= */
 
 .nimcet-offerings {
-  background: #f0e6de;
-  color: hsl(0, 0%, 100%);
-  padding: 90px 6%;
+  width: 100%;
+  padding: 65px 6% 75px;
+  background: #ffe3c3;
+  color: #080808;
   overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  box-sizing: border-box;
+}
+
+.nimcet-offerings,
+.nimcet-offerings * {
+  box-sizing: border-box;
 }
 
 .offerings-container {
-  max-width: 1250px;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Heading */
+
+/* =========================================
+   SECTION HEADING
+========================================= */
 
 .offerings-heading {
-  max-width: 720px;
-  margin-bottom: 42px;
+  max-width: 780px;
+  margin-bottom: 38px;
 }
 
-.offerings-eyebrow,
-.highlight-label,
-.tests-heading > span {
+.offerings-eyebrow {
   display: inline-block;
-  color: #1a1d24;
-  font-size: 12px;
+  color: #a64000;
+  font-size: 13px;
   font-weight: 800;
   letter-spacing: 2px;
-  margin-bottom: 14px;
+  margin-bottom: 15px;
 }
 
 .offerings-heading h2 {
-  font-size: clamp(32px, 4vw, 48px);
-  line-height: 1.15;
-  font-weight: 850;
-  letter-spacing: -1.8px;
-  color: #1a1d24;
+  color: #080808;
+  font-size: clamp(35px, 4.5vw, 54px);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -1.5px;
   margin: 0;
 }
 
 .offerings-heading h2 span {
-  color: #1a1d24;
+  color: #a64000;
 }
 
 .offerings-heading > p {
-  color: #1a1d24;
-  font-size: 16px;
-  line-height: 1.8;
-  margin-top: 16px;
-  max-width: 650px;
+  color: #252525;
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 400;
+  margin: 16px 0 0;
+  max-width: 680px;
 }
 
-/* Batch highlight */
+
+/* =========================================
+   NEW BATCH HIGHLIGHT
+========================================= */
 
 .offerings-highlight {
+  position: relative;
+  overflow: hidden;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  padding: 28px 34px;
+  gap: 25px;
+
+  padding: 26px 32px;
   margin-bottom: 28px;
-  border-radius: 18px;
-  background: #1a1d24;
-  color: white;
-  position: relative;
-  overflow: hidden;
+
+  background: #ffd4ad;
+  border: 2px solid #080808;
+  border-radius: 17px;
+
+  color: #080808;
 }
 
 .offerings-highlight::after {
   content: "";
   position: absolute;
-  width: 240px;
-  height: 240px;
-  border: 1px solid rgba(255,255,255,.16);
+
+  width: 230px;
+  height: 230px;
+
+  border: 2px solid rgba(166, 64, 0, 0.14);
   border-radius: 50%;
-  right: 110px;
+
+  right: 120px;
   top: -150px;
+
+  pointer-events: none;
 }
 
-.offerings-highlight h3 {
-  font-size: 29px;
-  margin: 0 0 7px;
-  font-weight: 700;
-}
-
-.offerings-highlight p {
-  margin: 0;
-  color: rgba(255,255,255,.8);
-  font-size: 14px;
-  font-weight: 600;
+.offerings-highlight-content {
+  position: relative;
+  z-index: 1;
 }
 
 .highlight-label {
-  color: #ffd29a;
+  display: inline-block;
+  color: #a64000;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
   margin-bottom: 8px;
 }
+
+.offerings-highlight h3 {
+  color: #080808;
+  font-size: 29px;
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 7px;
+}
+
+.offerings-highlight p {
+  color: #292929;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0;
+}
+
+
+/* Demo Classes */
 
 .demo-highlight {
   display: flex;
   align-items: center;
-  gap: 13px;
-  padding: 14px 22px;
+  gap: 14px;
+
+  padding: 12px 21px;
+
+  background: #ffe8d1;
+  border: 2px solid #080808;
   border-radius: 13px;
-  background: white;
-  color: #000;
+
+  color: #080808;
   flex-shrink: 0;
+  position: relative;
   z-index: 1;
 }
 
 .demo-number {
-  color: #000;
-  font-size: 42px;
+  color: #a64000;
+  font-size: 45px;
   font-weight: 900;
   line-height: 1;
 }
 
-.demo-highlight div {
+.demo-highlight-copy {
   display: flex;
   flex-direction: column;
   gap: 3px;
 }
 
-.demo-highlight strong {
+.demo-highlight-copy strong {
+  color: #080808;
   font-size: 19px;
+  font-weight: 800;
 }
 
-.demo-highlight div span {
+.demo-highlight-copy span {
+  color: #444;
   font-size: 13px;
-  color: #000;
   font-weight: 600;
 }
 
-/* Offering cards */
+
+/* =========================================
+   OFFERINGS GRID
+========================================= */
 
 .offerings-grid {
   display: grid;
@@ -139,109 +189,133 @@
   gap: 17px;
 }
 
+
+/* Offering Card */
+
 .offering-card {
+  position: relative;
+
   display: flex;
   align-items: center;
-  gap: 16px;
-  min-height: 112px;
-  padding: 20px;
-  background: #fff;
-  color: #1a1d24;
-  border: 1px solid #e8e8e3;
-  border-radius: 15px;
-  position: relative;
-  transition: transform .25s ease, box-shadow .25s ease,
-    border-color .25s ease;
+  gap: 15px;
+
+  flex: 1;
+  min-width: 0;
+  min-height: 120px;
+  padding: 19px;
+
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid #080808;
+  border-radius: 16px;
+
+  color: #080808;
+
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .offering-card:hover {
   transform: translateY(-5px);
-  border-color: #b5dadd;
-  box-shadow: 0 12px 30px rgba(16, 43, 70, .08);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: #080808;
+  box-shadow: 0 10px 22px rgba(166, 64, 0, 0.10);
 }
 
+
+/* Offering Icons */
+
 .offering-icon {
-  width: 58px;
-  height: 58px;
-  min-width: 58px;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  width: 55px;
+  height: 55px;
+  min-width: 55px;
+
+  background: #fff;
+  color: #a64000;
+
+  border: 1px solid #080808;
+  border-radius: 50%;
 }
 
 .offering-icon-svg {
-  width: 29px;
-  height: 29px;
+  width: 27px;
+  height: 27px;
 }
 
-.offering-icon.blue {
-  background: #1a1d24;
-  color: #f0e6de;
-}
+/* All icon variants follow the same theme */
 
-.offering-icon.pink {
-  background: #1a1d24;
-  color: #f0e6de;
-}
-
-.offering-icon.green {
-  background: #1a1d24;
-  color: #f0e6de;
-}
-
-.offering-icon.purple {
-  background: #1a1d24;
-  color: #f0e6de;
-}
-
+.offering-icon.blue,
+.offering-icon.pink,
+.offering-icon.green,
+.offering-icon.purple,
 .offering-icon.orange {
-  background: #1a1d24;
-  color: #f0e6de;
+  background: #fff;
+  color: #080808;
 }
+
+
+/* Offering Content */
 
 .offering-content {
   min-width: 0;
-  padding-right: 15px;
+  padding-right: 12px;
 }
 
 .offering-content h3 {
-  color: #1a1d24;
-  font-size: 16px;
-  line-height: 1.4;
+  color: #080808;
+  font-size: 18px;
+  line-height: 1.3;
   margin: 0;
   font-weight: 750;
 }
 
 .offering-content p {
-  color: #1a1d24;
-  font-size: 13px;
-  line-height: 1.5;
-  margin: 5px 0 0;
+  color: #444;
+  font-size: 14px;
+  line-height: 1.45;
+  margin: 6px 0 0;
 }
+
+
+/* Card Arrow */
 
 .offering-arrow {
   position: absolute;
-  right: 17px;
-  top: 15px;
-  color: #1a1d24;
-  font-size: 16px;
+  top: 13px;
+  right: 15px;
+
+  color: #080808;
+  font-size: 19px;
+  font-weight: 700;
+
   opacity: 0;
-  transition: opacity .2s ease;
+  transform: translate(-3px, 3px);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
 }
 
 .offering-card:hover .offering-arrow {
   opacity: 1;
+  transform: translate(0, 0);
 }
 
-/* Test series */
+
+/* =========================================
+   TEST SERIES SECTION
+========================================= */
 
 .tests-section {
-  margin-top: 65px;
-  padding: 32px;
-  background: #fff;
-  border: 1px solid #e8e8e3;
-  border-radius: 20px;
+  margin-top: 60px;
+  padding-top: 38px;
+  border-top: 2px solid #080808;
 }
 
 .tests-heading {
@@ -249,154 +323,356 @@
 }
 
 .tests-heading > span {
-  margin-bottom: 8px;
-  color: #1a1d24;
+  display: inline-block;
+  color: #080808;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 9px;
 }
 
 .tests-heading h3 {
-  color: #1a1d24;
-  font-size: 25px;
+  color: #a64000;
+  font-size: clamp(25px, 3vw, 34px);
+  font-weight: 800;
+  line-height: 1.2;
   margin: 0;
 }
 
 .tests-heading p {
-  color: #1a1d24;
-  font-size: 14px;
-  margin: 8px 0 0;
+  color: #444;
+  font-size: 16px;
+  line-height: 1.5;
+  margin: 9px 0 0;
 }
+
+
+/* Test Grid */
 
 .tests-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
 }
+
+
+/* Individual Test Card */
 
 .test-card {
   display: flex;
   align-items: center;
-  gap: 15px;
-  padding: 12px 24px;
-  border-right: 1px solid #e5e7eb;
+  gap: 16px;
+
+  flex: 1;
+  min-width: 0;
+  padding: 19px;
+
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid #080808;
+  border-radius: 15px;
+
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
-.test-card:first-child {
-  padding-left: 0;
+.test-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.35);
+  border-color: #080808;
+  box-shadow: 0 10px 22px rgba(166, 64, 0, 0.10);
 }
 
-.test-card:last-child {
-  border-right: 0;
+.test-content {
+  min-width: 0;
 }
 
 .test-card h4 {
-  color: #000;
-  font-size: 20px;
-  margin: 0 0 4px;
+  color: #080808;
+  font-size: 24px;
   font-weight: 850;
+  line-height: 1.2;
+  margin: 0 0 5px;
 }
 
 .test-card p {
-  color: #64748b;
-  font-size: 13px;
-  margin: 0;
-}
-
-/* Footer */
-
-.offerings-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 35px;
-  text-align: center;
-}
-
-.offerings-footer p {
-  color: #1a1d24;
+  color: #333;
   font-size: 14px;
-  font-weight: 600;
+  line-height: 1.4;
   margin: 0;
 }
 
-.footer-dot {
-  width: 8px;
-  height: 8px;
-  background: #1a1d24;
-  border-radius: 50%;
+
+/* =========================================
+   SCROLL REVEAL ANIMATION (REPEATS)
+========================================= */
+
+/*
+  .reveal-cell  -> watched by IntersectionObserver. It never moves,
+                   so it can't flicker at the screen edge.
+  .reveal-item  -> the layer that actually fades/slides.
+  The cards sit inside, so their own hover transform keeps working
+  and hover has no stagger delay.
+
+  JS adds/removes "is-visible" on .reveal-cell when it enters/leaves
+  the screen, so the animation plays on every scroll up/down.
+
+  Content stays visible by default; hiding only starts once JS adds
+  .offerings-js-ready.
+*/
+
+.reveal-cell {
+  min-width: 0;
 }
 
-/* Responsive */
+.offering-cell,
+.test-cell {
+  display: flex;
+}
 
-@media (max-width: 900px) {
+.reveal-fill {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.nimcet-offerings.offerings-js-ready .reveal-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  will-change: opacity, transform;
+}
+
+.nimcet-offerings.offerings-js-ready .reveal-cell.is-visible .reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms); /* stagger only when revealing */
+}
+
+
+/* =========================================
+   TABLET RESPONSIVENESS
+========================================= */
+
+@media (max-width: 1000px) {
+  .nimcet-offerings {
+    padding: 55px 5% 60px;
+  }
+
   .offerings-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
   }
 
   .tests-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .test-card,
-  .test-card:first-child {
-    padding: 15px 0;
-    border-right: 0;
-    border-bottom: 1px solid #e5e7eb;
-  }
-
-  .test-card:last-child {
-    border-bottom: 0;
+  .test-cell:last-child {
+    grid-column: 1 / -1;
   }
 }
 
-@media (max-width: 600px) {
+
+/* =========================================
+   MOBILE RESPONSIVENESS
+========================================= */
+
+@media (max-width: 640px) {
   .nimcet-offerings {
-    padding: 65px 5%;
+    padding: 45px 20px 50px;
+  }
+
+  /* One card per row on mobile: no stagger needed */
+  .nimcet-offerings.offerings-js-ready .reveal-cell.is-visible .reveal-item {
+    transition-delay: 0s;
   }
 
   .offerings-heading {
     margin-bottom: 28px;
   }
 
+  .offerings-eyebrow {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
   .offerings-heading h2 {
+    font-size: clamp(33px, 8vw, 43px);
     letter-spacing: -1px;
   }
+
+  .offerings-heading > p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-top: 13px;
+  }
+
+
+  /* Batch Highlight */
 
   .offerings-highlight {
     align-items: flex-start;
     flex-direction: column;
-    padding: 25px;
+    padding: 23px;
+    gap: 19px;
+    margin-bottom: 22px;
+  }
+
+  .offerings-highlight::after {
+    right: -90px;
   }
 
   .offerings-highlight h3 {
+    font-size: 26px;
+  }
+
+  .offerings-highlight p {
+    font-size: 14px;
+  }
+
+  .demo-highlight {
+    padding: 10px 17px;
+  }
+
+  .demo-number {
+    font-size: 38px;
+  }
+
+
+  /* Offering Cards */
+
+  .offerings-grid {
+    grid-template-columns: 1fr;
+    gap: 13px;
+  }
+
+  .offering-card {
+    min-height: 100px;
+    padding: 16px;
+    gap: 13px;
+    border-radius: 14px;
+  }
+
+  .offering-icon {
+    width: 49px;
+    height: 49px;
+    min-width: 49px;
+  }
+
+  .offering-icon-svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .offering-content h3 {
+    font-size: 16px;
+  }
+
+  .offering-content p {
+    font-size: 13px;
+  }
+
+  .offering-arrow {
+    top: 10px;
+    right: 12px;
+    font-size: 17px;
+  }
+
+
+  /* Test Series */
+
+  .tests-section {
+    margin-top: 42px;
+    padding-top: 30px;
+  }
+
+  .tests-heading {
+    margin-bottom: 20px;
+  }
+
+  .tests-heading h3 {
     font-size: 25px;
   }
 
-  .offerings-grid {
+  .tests-heading p {
+    font-size: 14px;
+  }
+
+  .tests-grid {
     grid-template-columns: 1fr;
     gap: 12px;
   }
 
-  .offering-card {
-    min-height: 95px;
-    padding: 16px;
+  .test-cell:last-child {
+    grid-column: auto;
   }
 
-  .tests-section {
-    margin-top: 40px;
-    padding: 22px;
+  .test-card {
+    padding: 15px;
+    gap: 13px;
   }
 
-  .tests-heading h3 {
+  .test-card h4 {
     font-size: 22px;
   }
 
-  .offerings-footer {
-    align-items: flex-start;
+  .test-card p {
+    font-size: 13px;
   }
 }
 
+
+/* =========================================
+   SMALL MOBILE SCREENS
+========================================= */
+
+@media (max-width: 380px) {
+  .nimcet-offerings {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .offerings-heading h2 {
+    font-size: 32px;
+  }
+
+  .offerings-highlight {
+    padding: 19px;
+  }
+
+  .offering-card {
+    padding: 13px;
+  }
+
+  .offering-content h3 {
+    font-size: 15px;
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
 @media (prefers-reduced-motion: reduce) {
-  .offering-card,
-  .offering-arrow {
-    transition: none;
+  .nimcet-offerings *,
+  .nimcet-offerings *::before,
+  .nimcet-offerings *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .nimcet-offerings.offerings-js-ready .reveal-item {
+    opacity: 1;
+    transform: none;
   }
 }

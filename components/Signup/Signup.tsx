@@ -4,6 +4,7 @@
 import { FormEvent, useState } from "react";
 import "./Signup.css";
 import { useRouter } from "next/navigation";
+import GuestOnly from "@/components/GuestOnly/GuestOnly";
 
 const API_URL =
   process.env.NEXT_PUBLIC_API_URL ?? "http://127.0.0.1:8000";
@@ -193,13 +194,9 @@ export default function Signup() {
   };
 
   return (
+    <GuestOnly>
     <div className="signup-page">
       <form className="signup-card" onSubmit={handleSignup}>
-        <div className="signup-heading">
-          <span className="signup-eyebrow">SIMS RAIPUR</span>
-          <h1>Create your account</h1>
-          <p>Start your NIMCET preparation journey with us.</p>
-        </div>
 
         {/* Email verification */}
         <div className="signup-field">
@@ -351,5 +348,6 @@ export default function Signup() {
         </p>
       </form>
     </div>
+    </GuestOnly>
   );
 }

@@ -1,4 +1,6 @@
+"use client";
 
+import { useEffect, useRef } from "react";
 import "./NimcetOfferings.css";
 
 type IconName =
@@ -147,80 +149,163 @@ function OfferingIcon({ name }: { name: IconName }) {
 }
 
 export default function NimcetOfferings() {
+  const sectionRef = useRef<HTMLElement | null>(null);
+
+  /* Scroll Reveal Animation (repeats every time you scroll in/out) */
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) return;
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    if (!("IntersectionObserver" in window)) return;
+
+    const targets = section.querySelectorAll<HTMLElement>("[data-reveal]");
+
+    // Content stays visible unless JS is ready to animate it
+    section.classList.add("offerings-js-ready");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          // Add when entering the screen, remove when leaving,
+          // so the animation plays again on every scroll up/down.
+          entry.target.classList.toggle("is-visible", entry.isIntersecting);
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -40px 0px",
+      }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="nimcet-offerings" id="offerings">
+    <section ref={sectionRef} className="nimcet-offerings" id="offerings">
       <div className="offerings-container">
-        <div className="offerings-heading">
-          <span className="offerings-eyebrow">
-            NIMCET 2027 PREPARATION
-          </span>
+        {/* Heading */}
+        <div className="reveal-cell" data-reveal>
+          <div className="reveal-item">
+            <div className="offerings-heading">
+              <span className="offerings-eyebrow">
+                NIMCET 2027 PREPARATION
+              </span>
 
-          <h2>
-            Everything You Need to
-            <span> Crack NIMCET</span>
-          </h2>
+              <h2>
+                Everything You Need to
+                <span> Crack NIMCET</span>
+              </h2>
 
-          <p>
-            A complete preparation ecosystem with expert guidance,
-            structured learning resources and exam-focused practice.
-          </p>
-        </div>
-
-        <div className="offerings-highlight">
-          <div>
-            <span className="highlight-label">NEW BATCH</span>
-            <h3>Coming Soon...</h3>
-            <p>Start your journey towards NIT with SIMS Raipur.</p>
-          </div>
-
-          <div className="demo-highlight">
-            <span className="demo-number">3</span>
-            <div>
-              <strong>Days</strong>
-              <span>Demo Classes</span>
+              <p>
+                A complete preparation ecosystem with expert guidance,
+                structured learning resources and exam-focused practice.
+              </p>
             </div>
           </div>
         </div>
 
+        {/* Batch Highlight */}
+        <div className="reveal-cell" data-reveal>
+          <div className="reveal-item">
+            <div className="offerings-highlight">
+              <div className="offerings-highlight-content">
+                <span className="highlight-label">NEW BATCH</span>
+
+                <h3>Coming Soon...</h3>
+
+                <p>Start your journey towards NIT with SIMS Raipur.</p>
+              </div>
+
+              <div className="demo-highlight">
+                <span className="demo-number">3</span>
+
+                <div className="demo-highlight-copy">
+                  <strong>Days</strong>
+                  <span>Demo Classes</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Offerings */}
         <div className="offerings-grid">
-          {offerings.map((item) => (
-            <article
-              className="offering-card"
+          {offerings.map((item, index) => (
+            <div
+              className="reveal-cell offering-cell"
               key={item.title}
+              data-reveal
+              style={
+                {
+                  "--reveal-delay": `${(index % 3) * 120}ms`,
+                } as React.CSSProperties
+              }
             >
-              <div className={`offering-icon ${item.color}`}>
-                <OfferingIcon name={item.icon} />
-              </div>
+              <div className="reveal-item reveal-fill">
+                <article className="offering-card">
+                  <div className={`offering-icon ${item.color}`}>
+                    <OfferingIcon name={item.icon} />
+                  </div>
 
-              <div className="offering-content">
-                <h3>{item.title}</h3>
-                {item.description && <p>{item.description}</p>}
-              </div>
+                  <div className="offering-content">
+                    <h3>{item.title}</h3>
 
-              <span className="offering-arrow">↗</span>
-            </article>
+                    {item.description && <p>{item.description}</p>}
+                  </div>
+
+                  <span className="offering-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </article>
+              </div>
+            </div>
           ))}
         </div>
 
+        {/* Test Series */}
         <div className="tests-section">
-          <div className="tests-heading">
-            <span>TEST SERIES</span>
-            <h3>Practice. Evaluate. Improve.</h3>
-            <p>
-              Track your preparation with our structured test system.
-            </p>
+          <div className="reveal-cell" data-reveal>
+            <div className="reveal-item">
+              <div className="tests-heading">
+                <span>TEST SERIES</span>
+
+                <h3>Practice. Evaluate. Improve.</h3>
+
+                <p>Track your preparation with our structured test system.</p>
+              </div>
+            </div>
           </div>
 
           <div className="tests-grid">
-            {tests.map((test) => (
-              <div className="test-card" key={test.title}>
-                <div className={`offering-icon ${test.color}`}>
-                  <OfferingIcon name={test.icon} />
-                </div>
+            {tests.map((test, index) => (
+              <div
+                className="reveal-cell test-cell"
+                key={test.title}
+                data-reveal
+                style={
+                  {
+                    "--reveal-delay": `${index * 150}ms`,
+                  } as React.CSSProperties
+                }
+              >
+                <div className="reveal-item reveal-fill">
+                  <article className="test-card">
+                    <div className={`offering-icon ${test.color}`}>
+                      <OfferingIcon name={test.icon} />
+                    </div>
 
-                <div>
-                  <h4>{test.title}</h4>
-                  <p>{test.description}</p>
+                    <div className="test-content">
+                      <h4>{test.title}</h4>
+                      <p>{test.description}</p>
+                    </div>
+                  </article>
                 </div>
               </div>
             ))}

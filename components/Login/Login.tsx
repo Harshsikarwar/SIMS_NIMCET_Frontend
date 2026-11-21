@@ -4,6 +4,7 @@
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import GuestOnly from "@/components/GuestOnly/GuestOnly";
 
 import "./Login.css";
 
@@ -150,6 +151,7 @@ export default function Login() {
   };
 
   return (
+    <GuestOnly>
     <main className="login-page">
       <section className="login-book">
         <div className="login-book-content">
@@ -232,5 +234,6 @@ export default function Login() {
         </div>
       </section>
     </main>
+    </GuestOnly>
   );
 }
