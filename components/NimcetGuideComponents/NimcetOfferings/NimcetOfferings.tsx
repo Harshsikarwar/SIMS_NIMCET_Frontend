@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { CSSProperties } from "react";
+import Link from "next/link";
 import "./NimcetOfferings.css";
 
 type IconName =
@@ -19,6 +21,10 @@ interface Offering {
   description?: string;
   icon: IconName;
   color: string;
+  /** Large faint maths symbol in the card corner */
+  symbol?: string;
+  /** One-line C snippet shown on the test cards */
+  code?: string;
 }
 
 const offerings: Offering[] = [
@@ -26,33 +32,39 @@ const offerings: Offering[] = [
     title: "Offline Classes",
     icon: "offline",
     color: "blue",
+    symbol: "∑",
   },
   {
     title: "Online Classes",
     icon: "online",
     color: "pink",
+    symbol: "π",
   },
   {
     title: "Topic-Wise Complete Study Materials",
     description: "PYQs with detailed solutions",
     icon: "book",
     color: "green",
+    symbol: "∫",
   },
   {
     title: "Recorded Classes Available",
     icon: "video",
     color: "purple",
+    symbol: "θ",
   },
   {
     title: "Doubt Classes",
     icon: "doubt",
     color: "orange",
+    symbol: "√",
   },
   {
     title: "Weekly 6-Days Classes",
     description: "Consistent learning and practice",
     icon: "weekly",
     color: "pink",
+    symbol: "∞",
   },
 ];
 
@@ -62,19 +74,56 @@ const tests: Offering[] = [
     description: "Weekly Review Test",
     icon: "review",
     color: "blue",
+    code: "week++; review();",
   },
   {
     title: "UWT",
     description: "Unit Wise Test",
     icon: "unit",
     color: "orange",
+    code: "test(unit[i]);",
   },
   {
     title: "FLT",
     description: "Full Length Test",
     icon: "full",
     color: "pink",
+    code: "return score;",
   },
+];
+
+/* Decorative background symbols. Fixed values (no Math.random) so the server
+   and the browser render identical markup and Next.js has no hydration mismatch. */
+const floaters: Array<{ s: string; x: number; y: number; size: number; delay: number; code?: boolean }> = [
+  { s: "∑", x: 4, y: 5, size: 38, delay: 0 },
+  { s: "#include", x: 30, y: 3, size: 15, delay: 1.4, code: true },
+  { s: "π", x: 58, y: 7, size: 34, delay: 2.2 },
+  { s: "int main()", x: 80, y: 4, size: 15, delay: 0.7, code: true },
+  { s: "∫", x: 94, y: 16, size: 40, delay: 1.8 },
+  { s: "{ }", x: 3, y: 28, size: 24, delay: 2.6, code: true },
+  { s: "√x", x: 92, y: 36, size: 30, delay: 0.5 },
+  { s: "printf()", x: 6, y: 52, size: 15, delay: 1.1, code: true },
+  { s: "θ", x: 95, y: 55, size: 34, delay: 2.0 },
+  { s: "i++", x: 3, y: 72, size: 17, delay: 0.3, code: true },
+  { s: "∞", x: 90, y: 72, size: 38, delay: 1.6 },
+  { s: "Δ", x: 12, y: 90, size: 32, delay: 2.4 },
+  { s: "&&", x: 38, y: 93, size: 18, delay: 0.9, code: true },
+  { s: "x²", x: 62, y: 91, size: 30, delay: 1.3 },
+  { s: "return 0;", x: 82, y: 94, size: 14, delay: 2.8, code: true },
+];
+
+/* Scrolling band of formulas and C statements (decorative). */
+const tickerItems = [
+  "∑ n = n(n+1)/2",
+  'printf("NIT");',
+  "a² + b² = c²",
+  "for (i = 0; i < n; i++)",
+  "∫ x dx = x²/2",
+  "if (score > cutoff)",
+  "√(a² + b²)",
+  "while (!ready) prepare();",
+  "sin²θ + cos²θ = 1",
+  "int rank = 1;",
 ];
 
 const iconPaths: Record<IconName, string[]> = {
@@ -148,7 +197,14 @@ function OfferingIcon({ name }: { name: IconName }) {
   );
 }
 
-export default function NimcetOfferings() {
+interface NimcetOfferingsProps {
+  /** Where the enquiry button goes. Change this to your real enquiry route. */
+  enquiryHref?: string;
+}
+
+export default function NimcetOfferings({
+  enquiryHref = "/enquiry",
+}: NimcetOfferingsProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   /* Scroll Reveal Animation (repeats every time you scroll in/out) */
@@ -189,6 +245,26 @@ export default function NimcetOfferings() {
 
   return (
     <section ref={sectionRef} className="nimcet-offerings" id="offerings">
+      {/* Decorative maths + C layer (behind the content) */}
+      <div className="offerings-bg" aria-hidden="true">
+        {floaters.map((f) => (
+          <span
+            key={f.s}
+            className={f.code ? "is-code" : undefined}
+            style={
+              {
+                left: `${f.x}%`,
+                top: `${f.y}%`,
+                fontSize: `${f.size}px`,
+                animationDelay: `${f.delay}s`,
+              } as CSSProperties
+            }
+          >
+            {f.s}
+          </span>
+        ))}
+      </div>
+
       <div className="offerings-container">
         {/* Heading */}
         <div className="reveal-cell" data-reveal>
@@ -215,12 +291,20 @@ export default function NimcetOfferings() {
         <div className="reveal-cell" data-reveal>
           <div className="reveal-item">
             <div className="offerings-highlight">
+              <span className="highlight-symbol" aria-hidden="true">
+                ∑
+              </span>
+
               <div className="offerings-highlight-content">
                 <span className="highlight-label">NEW BATCH</span>
 
                 <h3>Coming Soon...</h3>
 
                 <p>Start your journey towards NIT with SIMS Raipur.</p>
+
+                <code className="highlight-code" aria-hidden="true">
+                  while (!ready) prepare();
+                </code>
               </div>
 
               <div className="demo-highlight">
@@ -245,11 +329,17 @@ export default function NimcetOfferings() {
               style={
                 {
                   "--reveal-delay": `${(index % 3) * 120}ms`,
-                } as React.CSSProperties
+                } as CSSProperties
               }
             >
               <div className="reveal-item reveal-fill">
                 <article className="offering-card">
+                  {item.symbol && (
+                    <span className="offering-symbol" aria-hidden="true">
+                      {item.symbol}
+                    </span>
+                  )}
+
                   <div className={`offering-icon ${item.color}`}>
                     <OfferingIcon name={item.icon} />
                   </div>
@@ -267,6 +357,15 @@ export default function NimcetOfferings() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Formula + C ticker */}
+        <div className="formula-ticker" aria-hidden="true">
+          <div className="formula-track">
+            {[...tickerItems, ...tickerItems].map((item, index) => (
+              <span key={index}>{item}</span>
+            ))}
+          </div>
         </div>
 
         {/* Test Series */}
@@ -292,7 +391,7 @@ export default function NimcetOfferings() {
                 style={
                   {
                     "--reveal-delay": `${index * 150}ms`,
-                  } as React.CSSProperties
+                  } as CSSProperties
                 }
               >
                 <div className="reveal-item reveal-fill">
@@ -304,11 +403,43 @@ export default function NimcetOfferings() {
                     <div className="test-content">
                       <h4>{test.title}</h4>
                       <p>{test.description}</p>
+                      {test.code && (
+                        <code className="test-code" aria-hidden="true">
+                          {test.code}
+                        </code>
+                      )}
                     </div>
                   </article>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Enquiry */}
+        <div className="reveal-cell" data-reveal>
+          <div className="reveal-item">
+            <div className="enquiry-section">
+              <span className="enquiry-symbol" aria-hidden="true">
+                π
+              </span>
+
+              <div className="enquiry-copy">
+                <h3>Have questions about the NIMCET batch?</h3>
+                <p>
+                  Tell us what you need and our team will get back to you about
+                  the new batch, demo classes and the test series.
+                </p>
+                <code className="enquiry-code" aria-hidden="true">
+                  enquire(&quot;NIMCET&quot;);
+                </code>
+              </div>
+
+              <Link href={enquiryHref} className="enquiry-button">
+                Enquire now
+                <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
           </div>
         </div>
       </div>

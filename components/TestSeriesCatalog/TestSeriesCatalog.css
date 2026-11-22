@@ -1,0 +1,636 @@
+/* =========================================
+   MAIN SECTION
+========================================= */
+
+.nimcet-catalog {
+  position: relative;
+  width: 100%;
+  padding: 65px 6% 75px;
+  background: #ffe3c3;
+  color: #080808;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.nimcet-catalog,
+.nimcet-catalog * {
+  box-sizing: border-box;
+}
+
+.catalog-container {
+  position: relative;
+  z-index: 1; /* above the decorative background layer */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+
+/* =========================================
+   DECORATIVE MATHS + C BACKGROUND
+========================================= */
+
+.catalog-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.catalog-bg span {
+  position: absolute;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  line-height: 1;
+  white-space: nowrap;
+  color: rgba(166, 64, 0, 0.13);
+  animation: catalog-drift 9s ease-in-out infinite;
+}
+
+.catalog-bg span.is-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-style: normal;
+  font-weight: 600;
+  color: rgba(8, 8, 8, 0.1);
+}
+
+@keyframes catalog-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-3deg);
+  }
+  50% {
+    transform: translate3d(8px, -16px, 0) rotate(3deg);
+  }
+}
+
+
+/* =========================================
+   HEADING
+========================================= */
+
+.catalog-heading {
+  max-width: 780px;
+  margin-bottom: 38px;
+}
+
+.catalog-eyebrow {
+  display: inline-block;
+  color: #a64000;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.catalog-heading h2 {
+  color: #080808;
+  font-size: clamp(35px, 4.5vw, 54px);
+  line-height: 1.12;
+  font-weight: 800;
+  letter-spacing: -1.5px;
+  margin: 0;
+}
+
+.catalog-heading h2 span {
+  color: #a64000;
+}
+
+.catalog-heading > p {
+  color: #252525;
+  font-size: 17px;
+  line-height: 1.65;
+  font-weight: 400;
+  margin: 16px 0 0;
+  max-width: 680px;
+}
+
+
+/* =========================================
+   CATALOG GRID
+========================================= */
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.catalog-cell {
+  display: flex;
+}
+
+.catalog-fill {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* =========================================
+   CATALOG CARD
+========================================= */
+
+.catalog-card {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+
+  flex: 1;
+  min-width: 0;
+  padding: 20px 18px 18px;
+
+  background: rgba(255, 255, 255, 0.12);
+  border: 2px solid #080808;
+  border-radius: 18px;
+  color: #080808;
+
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.catalog-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255, 255, 255, 0.35);
+  box-shadow: 6px 6px 0 #080808;
+}
+
+/* Large faint maths symbol in the card corner */
+.catalog-symbol {
+  position: absolute;
+  right: 10px;
+  top: 40px;
+  font: italic 700 92px/1 Georgia, "Times New Roman", serif;
+  color: rgba(166, 64, 0, 0.13);
+  pointer-events: none;
+  transition:
+    transform 0.4s ease,
+    color 0.3s ease;
+}
+
+.catalog-card:hover .catalog-symbol {
+  color: rgba(166, 64, 0, 0.28);
+  transform: rotate(-8deg) scale(1.1);
+}
+
+.catalog-card > *:not(.catalog-symbol) {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* Top row: icon + tag */
+
+.catalog-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.catalog-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+
+  background: #ffffff;
+  color: #080808;
+  border: 1px solid #080808;
+  border-radius: 50%;
+}
+
+.catalog-icon-svg {
+  width: 26px;
+  height: 26px;
+}
+
+.catalog-tag {
+  padding: 4px 11px;
+  border: 1.5px solid #080808;
+  border-radius: 99px;
+  color: #a64000;
+  font-size: 12px;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+
+/* Text */
+
+.catalog-card h3 {
+  color: #a64000;
+  font-size: clamp(22px, 2vw, 27px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 9px;
+}
+
+.catalog-desc {
+  color: #292929;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0 0 16px;
+}
+
+
+/* Feature list */
+
+.catalog-features {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+  display: grid;
+  gap: 9px;
+}
+
+.catalog-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  color: #111111;
+  font-size: 14.5px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.catalog-features svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  padding: 2px;
+  color: #ffe3c3;
+  background: #a64000;
+  border-radius: 50%;
+}
+
+
+/* C snippet chip */
+
+.catalog-code {
+  align-self: flex-start;
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 18px;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #171717;
+  color: #ff9d4d;
+  font: 600 clamp(11px, 1vw, 13px) / 1.4 ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.catalog-code::after {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 4px;
+  vertical-align: -0.15em;
+  background: #ff9d4d;
+  animation: catalog-blink 1s steps(1) infinite;
+}
+
+@keyframes catalog-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+
+/* Bottom: price + button (always pinned to the card bottom) */
+
+.catalog-card-bottom {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 2px dashed rgba(8, 8, 8, 0.35);
+}
+
+.catalog-price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.catalog-price strong {
+  color: #080808;
+  font-size: 26px;
+  font-weight: 850;
+  line-height: 1;
+}
+
+.catalog-price s {
+  color: #6a5a4b;
+  font-size: 15px;
+}
+
+.catalog-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  width: 100%;
+  min-height: 48px;
+  padding: 11px 18px;
+
+  background: #a64000;
+  color: #fff4e6;
+  border: 2px solid #080808;
+  border-radius: 13px;
+  box-shadow: 4px 4px 0 #080808;
+
+  font-size: 16px;
+  font-weight: 800;
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.catalog-button span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.catalog-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #080808;
+  background: #8f3600;
+}
+
+.catalog-button:hover span {
+  transform: translate(3px, -3px);
+}
+
+.catalog-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 1px 1px 0 #080808;
+}
+
+.catalog-button:focus-visible {
+  outline: 3px solid #080808;
+  outline-offset: 4px;
+}
+
+
+/* =========================================
+   FEATURED (DARK) CARD
+========================================= */
+
+.catalog-card.is-featured {
+  background: #171717;
+  border-color: #171717;
+  color: #ffe3c3;
+}
+
+.catalog-card.is-featured:hover {
+  background: #1f1f1f;
+  box-shadow: 6px 6px 0 #a64000;
+}
+
+.catalog-card.is-featured .catalog-symbol {
+  color: rgba(255, 157, 77, 0.16);
+}
+
+.catalog-card.is-featured:hover .catalog-symbol {
+  color: rgba(255, 157, 77, 0.32);
+}
+
+.catalog-card.is-featured .catalog-icon {
+  background: #ffe3c3;
+  color: #171717;
+  border-color: #ffe3c3;
+}
+
+.catalog-card.is-featured .catalog-tag {
+  background: #ff9d4d;
+  border-color: #ff9d4d;
+  color: #171717;
+}
+
+.catalog-card.is-featured h3 {
+  color: #ff9d4d;
+}
+
+.catalog-card.is-featured .catalog-desc {
+  color: #e6d3bd;
+}
+
+.catalog-card.is-featured .catalog-features li {
+  color: #ffe3c3;
+}
+
+.catalog-card.is-featured .catalog-features svg {
+  background: #ff9d4d;
+  color: #171717;
+}
+
+.catalog-card.is-featured .catalog-code {
+  background: #ffe3c3;
+  color: #a64000;
+}
+
+.catalog-card.is-featured .catalog-code::after {
+  background: #a64000;
+}
+
+.catalog-card.is-featured .catalog-card-bottom {
+  border-top-color: rgba(255, 227, 195, 0.35);
+}
+
+.catalog-card.is-featured .catalog-price strong {
+  color: #ffe3c3;
+}
+
+.catalog-card.is-featured .catalog-price s {
+  color: #b9a58f;
+}
+
+.catalog-card.is-featured .catalog-button {
+  background: #ff9d4d;
+  color: #171717;
+  border-color: #ffe3c3;
+  box-shadow: 4px 4px 0 #a64000;
+}
+
+.catalog-card.is-featured .catalog-button:hover {
+  background: #ffb372;
+  box-shadow: 6px 6px 0 #a64000;
+}
+
+.catalog-card.is-featured .catalog-button:focus-visible {
+  outline-color: #ffe3c3;
+}
+
+
+/* =========================================
+   SCROLL REVEAL ANIMATION (REPEATS)
+========================================= */
+
+/*
+  .catalog-reveal-cell -> watched by IntersectionObserver. It never moves,
+                          so it can't flicker at the screen edge.
+  .catalog-reveal-item -> the layer that fades/slides. The card sits inside,
+                          so its own hover transform still works.
+  Content stays visible by default; hiding only starts once JS adds
+  .catalog-js-ready.
+*/
+
+.catalog-reveal-cell {
+  min-width: 0;
+}
+
+.nimcet-catalog.catalog-js-ready .catalog-reveal-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.4s ease,
+    transform 0.4s ease;
+  will-change: opacity, transform;
+}
+
+.nimcet-catalog.catalog-js-ready .catalog-reveal-cell.is-visible .catalog-reveal-item {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.8s ease,
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms); /* stagger only when revealing */
+}
+
+
+/* =========================================
+   LAPTOP / TABLET
+========================================= */
+
+@media (max-width: 1100px) {
+  .catalog-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1000px) {
+  .nimcet-catalog {
+    padding: 55px 5% 60px;
+  }
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 640px) {
+  .nimcet-catalog {
+    padding: 45px 20px 50px;
+  }
+
+  /* one card per row: no stagger needed */
+  .nimcet-catalog.catalog-js-ready .catalog-reveal-cell.is-visible .catalog-reveal-item {
+    transition-delay: 0s;
+  }
+
+  /* fewer background symbols on small screens */
+  .catalog-bg span:nth-child(n + 9) {
+    display: none;
+  }
+
+  .catalog-heading {
+    margin-bottom: 28px;
+  }
+
+  .catalog-eyebrow {
+    font-size: 11px;
+    margin-bottom: 12px;
+  }
+
+  .catalog-heading h2 {
+    font-size: clamp(33px, 8vw, 43px);
+    letter-spacing: -1px;
+  }
+
+  .catalog-heading > p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin-top: 13px;
+  }
+
+  .catalog-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .catalog-card {
+    padding: 18px 16px 16px;
+    border-radius: 16px;
+  }
+
+  .catalog-symbol {
+    font-size: 80px;
+  }
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 380px) {
+  .nimcet-catalog {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .catalog-heading h2 {
+    font-size: 32px;
+  }
+
+  .catalog-button {
+    font-size: 15px;
+  }
+}
+
+
+/* =========================================
+   ACCESSIBILITY
+========================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .nimcet-catalog *,
+  .nimcet-catalog *::before,
+  .nimcet-catalog *::after {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .nimcet-catalog.catalog-js-ready .catalog-reveal-item {
+    opacity: 1;
+    transform: none;
+  }
+
+  .catalog-card:hover,
+  .catalog-card:hover .catalog-symbol,
+  .catalog-button:hover,
+  .catalog-button:hover span {
+    transform: none;
+  }
+}

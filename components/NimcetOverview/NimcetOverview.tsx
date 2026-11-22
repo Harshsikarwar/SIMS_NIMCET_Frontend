@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import type { CSSProperties } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import "./NimcetOverview.css";
@@ -11,25 +12,63 @@ const benefits = [
     title: "NIT Admission",
     description:
       "Get an opportunity to pursue MCA at participating National Institutes of Technology.",
+    symbol: "∑",
+    code: "admit(nit);",
   },
   {
     number: "02",
     title: "National Level Exam",
     description:
       "Compete with candidates from across India through a common entrance examination.",
+    symbol: "π",
+    code: "for (i = 0; i < n; i++)",
   },
   {
     number: "03",
     title: "Career Opportunities",
     description:
       "Get an opportunity to pursue MCA at participating National Institutes of Technology.",
+    symbol: "∫",
+    code: "return career;",
   },
   {
     number: "04",
     title: "Recognised Institutes",
     description:
       "Get an opportunity to pursue MCA at participating National Institutes of Technology.",
+    symbol: "√",
+    code: "if (nit) ok++;",
   },
+];
+
+/* Decorative background symbols. Fixed values (no Math.random) so the server
+   and browser render the same markup and Next.js never reports a hydration mismatch. */
+const floaters: Array<{ s: string; x: number; y: number; size: number; delay: number; code?: boolean }> = [
+  { s: "π", x: 3, y: 10, size: 40, delay: 0 },
+  { s: "#include", x: 24, y: 4, size: 15, delay: 1.2, code: true },
+  { s: "∑", x: 47, y: 12, size: 34, delay: 2.1 },
+  { s: "{ }", x: 71, y: 5, size: 22, delay: 0.6, code: true },
+  { s: "∫", x: 93, y: 14, size: 42, delay: 1.7 },
+  { s: "printf()", x: 7, y: 38, size: 15, delay: 2.6, code: true },
+  { s: "√x", x: 90, y: 40, size: 30, delay: 0.3 },
+  { s: "i++", x: 55, y: 34, size: 16, delay: 1.5, code: true },
+  { s: "θ", x: 4, y: 62, size: 32, delay: 2.2 },
+  { s: "->", x: 30, y: 58, size: 18, delay: 0.9, code: true },
+  { s: "∞", x: 78, y: 60, size: 36, delay: 1.9 },
+  { s: "0x1F", x: 95, y: 74, size: 15, delay: 0.4, code: true },
+  { s: "Δ", x: 14, y: 84, size: 34, delay: 1.1 },
+  { s: "&&", x: 42, y: 88, size: 18, delay: 2.4, code: true },
+  { s: "x²", x: 66, y: 86, size: 30, delay: 0.7 },
+  { s: "return 0;", x: 84, y: 92, size: 14, delay: 1.8, code: true },
+];
+
+/* Small chips that float around the hero image. */
+const chips: Array<{ s: string; className: string; code?: boolean }> = [
+  { s: "π", className: "chip-a" },
+  { s: "∑", className: "chip-b" },
+  { s: "{ }", className: "chip-c", code: true },
+  { s: "√x", className: "chip-d" },
+  { s: "int", className: "chip-e", code: true },
 ];
 
 export default function NimcetOverview() {
@@ -70,6 +109,26 @@ export default function NimcetOverview() {
 
   return (
     <section className="nimcet-overview">
+      {/* Decorative maths + C layer (behind the content) */}
+      <div className="nimcet-overview-bg" aria-hidden="true">
+        {floaters.map((f) => (
+          <span
+            key={f.s}
+            className={f.code ? "is-code" : undefined}
+            style={
+              {
+                left: `${f.x}%`,
+                top: `${f.y}%`,
+                fontSize: `${f.size}px`,
+                animationDelay: `${f.delay}s`,
+              } as CSSProperties
+            }
+          >
+            {f.s}
+          </span>
+        ))}
+      </div>
+
       <div className="nimcet-overview-container">
         {/* Upper Section */}
         <div className="nimcet-overview-main">
@@ -85,6 +144,32 @@ export default function NimcetOverview() {
               pursue postgraduate education in computer applications at
               participating NITs through a common admission process.
             </p>
+
+            {/* C program + formula strip */}
+            <div className="nimcet-code" aria-hidden="true">
+              <div className="nimcet-code-bar">
+                <i />
+                <i />
+                <i />
+                <span>main.c</span>
+              </div>
+              <div className="nimcet-code-body">
+                <div style={{ "--n": 0 } as CSSProperties}>
+                  <b>int</b> main(<b>void</b>) {"{"}
+                </div>
+                <div style={{ "--n": 1 } as CSSProperties}>
+                  {"  "}printf(<em>&quot;Hello, NIT!&quot;</em>);
+                </div>
+                <div style={{ "--n": 2 } as CSSProperties}>
+                  {"  "}
+                  <b>return</b> 0; <u>{"/* ∑ k = n(n+1)/2 */"}</u>
+                </div>
+                <div style={{ "--n": 3 } as CSSProperties}>
+                  {"}"}
+                  <span className="nimcet-caret" />
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right Image */}
@@ -97,13 +182,28 @@ export default function NimcetOverview() {
               sizes="(max-width: 640px) 90vw, (max-width: 1000px) 40vw, 32vw"
               className="nimcet-overview-img"
             />
+
+            {chips.map((c) => (
+              <span
+                key={c.s}
+                className={`nimcet-chip ${c.className}${c.code ? " is-code" : ""}`}
+                aria-hidden="true"
+              >
+                {c.s}
+              </span>
+            ))}
           </div>
         </div>
 
         {/* Benefits Section */}
         <div ref={benefitsRef} className="nimcet-overview-benefits">
           <div className="nimcet-benefits-heading-wrap" data-reveal>
-            <h2 className="nimcet-benefits-heading">WHY NIMCET?</h2>
+            <h2 className="nimcet-benefits-heading">
+              WHY NIMCET?
+              <span className="nimcet-benefits-comment" aria-hidden="true">
+                {"/* 4 reasons */"}
+              </span>
+            </h2>
           </div>
 
           <div className="nimcet-benefits-grid">
@@ -116,11 +216,15 @@ export default function NimcetOverview() {
                   {
                     // small stagger so cards in the same row don't pop together
                     "--reveal-delay": `${(index % 4) * 100}ms`,
-                  } as React.CSSProperties
+                  } as CSSProperties
                 }
               >
                 <div className="nimcet-benefit-reveal">
                   <article className="nimcet-benefit-card">
+                    <span className="nimcet-benefit-symbol" aria-hidden="true">
+                      {benefit.symbol}
+                    </span>
+
                     <div className="nimcet-benefit-meta">
                       <span className="nimcet-benefit-number">
                         {benefit.number}
@@ -130,6 +234,10 @@ export default function NimcetOverview() {
                     <h3>{benefit.title}</h3>
 
                     <p>{benefit.description}</p>
+
+                    <code className="nimcet-benefit-code" aria-hidden="true">
+                      {benefit.code}
+                    </code>
                   </article>
                 </div>
               </div>

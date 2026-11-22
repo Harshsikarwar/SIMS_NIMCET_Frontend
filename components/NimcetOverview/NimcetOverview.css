@@ -1,5 +1,6 @@
 /* Main Section */
 .nimcet-overview {
+  position: relative;
   width: 100%;
   padding: 42px 6% 28px;
   background: #ffe3c3;
@@ -14,9 +15,48 @@
 }
 
 .nimcet-overview-container {
+  position: relative;
+  z-index: 1; /* above the decorative background layer */
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+
+/* ===== Decorative maths + C background ===== */
+.nimcet-overview-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.nimcet-overview-bg span {
+  position: absolute;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  line-height: 1;
+  white-space: nowrap;
+  color: rgba(166, 64, 0, 0.13);
+  animation: nimcet-drift 9s ease-in-out infinite;
+}
+
+.nimcet-overview-bg span.is-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-style: normal;
+  font-weight: 600;
+  color: rgba(8, 8, 8, 0.1);
+}
+
+@keyframes nimcet-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-3deg);
+  }
+  50% {
+    transform: translate3d(8px, -16px, 0) rotate(3deg);
+  }
 }
 
 
@@ -54,8 +94,100 @@
 }
 
 
+/* ===== C program strip ===== */
+.nimcet-code {
+  width: 100%;
+  max-width: 380px;
+  margin-top: 22px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #171717;
+  color: #ffe3c3;
+  box-shadow: 0 18px 30px -20px rgba(23, 23, 23, 0.7);
+}
+
+.nimcet-code-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #2a2a2a;
+}
+
+.nimcet-code-bar i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #6b6258;
+}
+
+.nimcet-code-bar i:first-child {
+  background: #ff9d4d;
+}
+
+.nimcet-code-bar span {
+  margin-left: auto;
+  font: 600 12px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: #cbbba8;
+}
+
+.nimcet-code-body {
+  padding: 12px 16px 14px;
+  font: 500 clamp(12px, 1.1vw, 14px) / 1.7 ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+  white-space: pre;
+  overflow-x: auto;
+}
+
+.nimcet-code-body > div {
+  opacity: 0;
+  transform: translateX(-8px);
+  animation: nimcet-line 0.45s ease forwards;
+  animation-delay: calc(0.5s + var(--n, 0) * 0.35s);
+}
+
+.nimcet-code-body b {
+  color: #ff9d4d;
+  font-weight: 600;
+}
+
+.nimcet-code-body em {
+  color: #9ad7a4;
+  font-style: normal;
+}
+
+.nimcet-code-body u {
+  color: #8d8478;
+  text-decoration: none;
+}
+
+.nimcet-caret {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 4px;
+  vertical-align: -0.15em;
+  background: #ff9d4d;
+  animation: nimcet-blink 1s steps(1) infinite;
+}
+
+@keyframes nimcet-line {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes nimcet-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+
 /* Right Image */
 .nimcet-overview-image {
+  position: relative;
   width: 100%;
   max-width: 400px;
   justify-self: end;
@@ -71,6 +203,63 @@
   object-fit: contain;
 }
 
+/* Chips floating around the image */
+.nimcet-chip {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 10px;
+  border-radius: 50%;
+  border: 2px solid #000000;
+  background: #ffe3c3;
+  color: #a64000;
+  font: 700 22px Georgia, "Times New Roman", serif;
+  box-shadow: 4px 4px 0 #000000;
+  animation: nimcet-bob 5s ease-in-out infinite;
+}
+
+.nimcet-chip.is-code {
+  border-radius: 14px;
+  background: #171717;
+  border-color: #171717;
+  color: #ff9d4d;
+  font: 700 16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  box-shadow: 4px 4px 0 #a64000;
+}
+
+.chip-a {
+  top: 2%;
+  left: -4%;
+}
+.chip-b {
+  top: 6%;
+  right: -2%;
+  animation-delay: -1.2s;
+}
+.chip-c {
+  top: 46%;
+  left: -8%;
+  animation-delay: -2.4s;
+}
+.chip-d {
+  bottom: 12%;
+  right: -4%;
+  animation-delay: -3.1s;
+}
+.chip-e {
+  bottom: 2%;
+  left: 6%;
+  animation-delay: -0.6s;
+}
+
+@keyframes nimcet-bob {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
 
 /* Benefits Section */
 .nimcet-overview-benefits {
@@ -84,6 +273,15 @@
   font-weight: 800;
   line-height: 1.1;
   margin: 0 0 24px;
+}
+
+.nimcet-benefits-comment {
+  display: inline-block;
+  margin-left: 14px;
+  vertical-align: middle;
+  color: #8a4a1c;
+  font: 500 clamp(14px, 1.5vw, 20px) ui-monospace, SFMono-Regular, Menlo, Consolas,
+    monospace;
 }
 
 
@@ -150,6 +348,8 @@
 
 /* Individual Cards */
 .nimcet-benefit-card {
+  position: relative;
+  overflow: hidden;
   flex: 1;
   min-width: 0;
   min-height: 233px;
@@ -170,6 +370,39 @@
 .nimcet-benefit-card:hover {
   background-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-4px);
+}
+
+/* Large faint maths symbol in the card corner */
+.nimcet-benefit-symbol {
+  position: absolute;
+  top: 2px;
+  right: 12px;
+  font: italic 700 64px/1 Georgia, "Times New Roman", serif;
+  color: rgba(166, 64, 0, 0.16);
+  pointer-events: none;
+  transition:
+    transform 0.4s ease,
+    color 0.3s ease;
+}
+
+.nimcet-benefit-card:hover .nimcet-benefit-symbol {
+  color: rgba(166, 64, 0, 0.32);
+  transform: rotate(-8deg) scale(1.12);
+}
+
+/* One-line C snippet at the bottom of each card */
+.nimcet-benefit-code {
+  display: block;
+  margin-top: 12px;
+  padding: 5px 9px;
+  border-radius: 8px;
+  background: #171717;
+  color: #ff9d4d;
+  font: 600 clamp(11px, 1vw, 13px) / 1.4 ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
@@ -351,6 +584,10 @@
     line-height: 1.55;
   }
 
+  .nimcet-code {
+    max-width: 100%;
+  }
+
   .nimcet-overview-image {
     grid-row: 2;
     width: 100%;
@@ -358,9 +595,33 @@
     justify-self: center;
   }
 
+  /* keep the chips inside the screen edge */
+  .chip-a {
+    left: 0;
+  }
+  .chip-b {
+    right: 0;
+  }
+  .chip-c {
+    left: -2%;
+  }
+  .chip-d {
+    right: 0;
+  }
+
+  /* fewer background symbols on small screens */
+  .nimcet-overview-bg span:nth-child(n + 11) {
+    display: none;
+  }
+
   .nimcet-benefits-heading {
     font-size: 32px;
     margin-bottom: 20px;
+  }
+
+  .nimcet-benefits-comment {
+    display: block;
+    margin: 6px 0 0;
   }
 
   .nimcet-benefits-grid {
@@ -463,5 +724,26 @@
   .nimcet-benefit-meta::after {
     transform: scaleX(1);
     transition: none;
+  }
+
+  /* stop the decorative motion */
+  .nimcet-overview-bg span,
+  .nimcet-chip,
+  .nimcet-caret {
+    animation: none;
+  }
+
+  .nimcet-code-body > div {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+
+  .nimcet-benefit-symbol {
+    transition: none;
+  }
+
+  .nimcet-benefit-card:hover .nimcet-benefit-symbol {
+    transform: none;
   }
 }

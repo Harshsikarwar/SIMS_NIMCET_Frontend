@@ -3,6 +3,7 @@
 ========================================= */
 
 .nimcet-offerings {
+  position: relative;
   width: 100%;
   padding: 65px 6% 75px;
   background: #ffe3c3;
@@ -17,9 +18,51 @@
 }
 
 .offerings-container {
+  position: relative;
+  z-index: 1; /* above the decorative background layer */
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+}
+
+
+/* =========================================
+   DECORATIVE MATHS + C BACKGROUND
+========================================= */
+
+.offerings-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.offerings-bg span {
+  position: absolute;
+  font-family: Georgia, "Times New Roman", serif;
+  font-style: italic;
+  line-height: 1;
+  white-space: nowrap;
+  color: rgba(166, 64, 0, 0.13);
+  animation: offerings-drift 9s ease-in-out infinite;
+}
+
+.offerings-bg span.is-code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-style: normal;
+  font-weight: 600;
+  color: rgba(8, 8, 8, 0.1);
+}
+
+@keyframes offerings-drift {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) rotate(-3deg);
+  }
+  50% {
+    transform: translate3d(8px, -16px, 0) rotate(3deg);
+  }
 }
 
 
@@ -103,6 +146,17 @@
   pointer-events: none;
 }
 
+/* big faint maths symbol inside the highlight */
+.highlight-symbol {
+  position: absolute;
+  right: 190px;
+  bottom: -26px;
+  font: italic 700 120px/1 Georgia, "Times New Roman", serif;
+  color: rgba(166, 64, 0, 0.12);
+  pointer-events: none;
+  animation: offerings-bob 6s ease-in-out infinite;
+}
+
 .offerings-highlight-content {
   position: relative;
   z-index: 1;
@@ -131,6 +185,51 @@
   font-weight: 400;
   line-height: 1.5;
   margin: 0;
+}
+
+/* shared small "code chip" look */
+.highlight-code,
+.test-code,
+.enquiry-code {
+  display: inline-block;
+  max-width: 100%;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background: #171717;
+  color: #ff9d4d;
+  font: 600 clamp(11px, 1vw, 13px) / 1.4 ui-monospace, SFMono-Regular, Menlo,
+    Consolas, monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.highlight-code {
+  margin-top: 12px;
+}
+
+.highlight-code::after,
+.enquiry-code::after {
+  content: "";
+  display: inline-block;
+  width: 0.5em;
+  height: 1em;
+  margin-left: 4px;
+  vertical-align: -0.15em;
+  background: #ff9d4d;
+  animation: offerings-blink 1s steps(1) infinite;
+}
+
+@keyframes offerings-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes offerings-bob {
+  50% {
+    transform: translateY(-10px) rotate(-4deg);
+  }
 }
 
 
@@ -194,6 +293,7 @@
 
 .offering-card {
   position: relative;
+  overflow: hidden;
 
   display: flex;
   align-items: center;
@@ -222,6 +322,24 @@
   background: rgba(255, 255, 255, 0.35);
   border-color: #080808;
   box-shadow: 0 10px 22px rgba(166, 64, 0, 0.10);
+}
+
+/* Faint maths symbol in the bottom-right of each card */
+.offering-symbol {
+  position: absolute;
+  right: 12px;
+  bottom: -14px;
+  font: italic 700 70px/1 Georgia, "Times New Roman", serif;
+  color: rgba(166, 64, 0, 0.14);
+  pointer-events: none;
+  transition:
+    transform 0.4s ease,
+    color 0.3s ease;
+}
+
+.offering-card:hover .offering-symbol {
+  color: rgba(166, 64, 0, 0.3);
+  transform: rotate(-8deg) scale(1.12);
 }
 
 
@@ -263,6 +381,7 @@
 /* Offering Content */
 
 .offering-content {
+  position: relative;
   min-width: 0;
   padding-right: 12px;
 }
@@ -305,6 +424,58 @@
 .offering-card:hover .offering-arrow {
   opacity: 1;
   transform: translate(0, 0);
+}
+
+
+/* =========================================
+   FORMULA + C TICKER
+========================================= */
+
+.formula-ticker {
+  position: relative;
+  margin-top: 34px;
+  overflow: hidden;
+  border-top: 2px solid #080808;
+  border-bottom: 2px solid #080808;
+  background: rgba(255, 255, 255, 0.18);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+}
+
+.formula-track {
+  display: flex;
+  width: max-content;
+  animation: offerings-scroll 38s linear infinite;
+}
+
+.formula-ticker:hover .formula-track {
+  animation-play-state: paused;
+}
+
+.formula-track span {
+  flex-shrink: 0;
+  padding: 11px 26px;
+  color: #a64000;
+  font: 600 16px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  white-space: nowrap;
+}
+
+.formula-track span:nth-child(odd) {
+  color: #080808;
+}
+
+.formula-track span::after {
+  content: "◆";
+  margin-left: 26px;
+  font-size: 9px;
+  color: rgba(166, 64, 0, 0.55);
+  vertical-align: middle;
+}
+
+@keyframes offerings-scroll {
+  to {
+    transform: translateX(-50%);
+  }
 }
 
 
@@ -404,6 +575,116 @@
   margin: 0;
 }
 
+.test-code {
+  margin-top: 10px;
+}
+
+
+/* =========================================
+   ENQUIRY
+========================================= */
+
+.enquiry-section {
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+
+  margin-top: 60px;
+  padding: 30px 34px;
+
+  background: #ffd4ad;
+  border: 2px solid #080808;
+  border-radius: 17px;
+}
+
+.enquiry-symbol {
+  position: absolute;
+  left: 46%;
+  bottom: -34px;
+  font: italic 700 130px/1 Georgia, "Times New Roman", serif;
+  color: rgba(166, 64, 0, 0.12);
+  pointer-events: none;
+  animation: offerings-bob 6s ease-in-out infinite;
+}
+
+.enquiry-copy {
+  position: relative;
+  z-index: 1;
+  max-width: 640px;
+}
+
+.enquiry-copy h3 {
+  color: #a64000;
+  font-size: clamp(24px, 2.8vw, 33px);
+  font-weight: 800;
+  line-height: 1.2;
+  margin: 0 0 10px;
+}
+
+.enquiry-copy p {
+  color: #252525;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 14px;
+}
+
+.enquiry-button {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  min-height: 54px;
+  padding: 14px 28px;
+
+  background: #a64000;
+  color: #fff4e6;
+  border: 2px solid #080808;
+  border-radius: 14px;
+  box-shadow: 5px 5px 0 #080808;
+
+  font-size: 18px;
+  font-weight: 800;
+  text-decoration: none;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.enquiry-button span {
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.enquiry-button:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 #080808;
+  background: #8f3600;
+}
+
+.enquiry-button:hover span {
+  transform: translate(3px, -3px);
+}
+
+.enquiry-button:active {
+  transform: translate(3px, 3px);
+  box-shadow: 2px 2px 0 #080808;
+}
+
+.enquiry-button:focus-visible {
+  outline: 3px solid #080808;
+  outline-offset: 4px;
+}
+
 
 /* =========================================
    SCROLL REVEAL ANIMATION (REPEATS)
@@ -478,6 +759,14 @@
   .test-cell:last-child {
     grid-column: 1 / -1;
   }
+
+  .highlight-symbol {
+    right: 140px;
+  }
+
+  .enquiry-symbol {
+    left: 38%;
+  }
 }
 
 
@@ -493,6 +782,11 @@
   /* One card per row on mobile: no stagger needed */
   .nimcet-offerings.offerings-js-ready .reveal-cell.is-visible .reveal-item {
     transition-delay: 0s;
+  }
+
+  /* fewer background symbols on small screens */
+  .offerings-bg span:nth-child(n + 10) {
+    display: none;
   }
 
   .offerings-heading {
@@ -530,6 +824,13 @@
     right: -90px;
   }
 
+  .highlight-symbol {
+    right: 14px;
+    bottom: auto;
+    top: 8px;
+    font-size: 84px;
+  }
+
   .offerings-highlight h3 {
     font-size: 26px;
   }
@@ -561,6 +862,10 @@
     border-radius: 14px;
   }
 
+  .offering-symbol {
+    font-size: 58px;
+  }
+
   .offering-icon {
     width: 49px;
     height: 49px;
@@ -584,6 +889,15 @@
     top: 10px;
     right: 12px;
     font-size: 17px;
+  }
+
+  .formula-ticker {
+    margin-top: 28px;
+  }
+
+  .formula-track span {
+    font-size: 14px;
+    padding: 9px 20px;
   }
 
 
@@ -626,6 +940,34 @@
 
   .test-card p {
     font-size: 13px;
+  }
+
+
+  /* Enquiry */
+
+  .enquiry-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    margin-top: 42px;
+    padding: 24px 22px;
+  }
+
+  .enquiry-symbol {
+    left: auto;
+    right: 10px;
+    bottom: auto;
+    top: 4px;
+    font-size: 92px;
+  }
+
+  .enquiry-copy p {
+    font-size: 15px;
+  }
+
+  .enquiry-button {
+    width: 100%;
+    justify-content: center;
   }
 }
 
@@ -674,5 +1016,16 @@
   .nimcet-offerings.offerings-js-ready .reveal-item {
     opacity: 1;
     transform: none;
+  }
+
+  /* the ticker becomes a static strip that shows each item once */
+  .formula-track {
+    flex-wrap: wrap;
+    width: auto;
+    justify-content: center;
+  }
+
+  .formula-track span:nth-child(n + 11) {
+    display: none;
   }
 }
