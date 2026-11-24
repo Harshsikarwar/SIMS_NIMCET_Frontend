@@ -13,9 +13,10 @@ import "./Header.css";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "NIMCET Guide", href: "/nimcet_guide" },
+  { name: "NIMCET Guide", href: "/nimcet-guide" },
   { name: "Test Series", href: "/test-series" },
   { name: "About", href: "/about" },
+  { name: "Enquiry", href: "/enquiry" },
 ];
 
 const API_URL =
